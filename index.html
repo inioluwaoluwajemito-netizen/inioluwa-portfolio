@@ -628,6 +628,16 @@
                     </div>
                   </a>
 
+                  <a href="mailto:iniesta.automation@gmail.com" class="contact-channel-card">
+                    <div class="channel-icon">
+                      <i data-lucide="mail"></i>
+                    </div>
+                    <div>
+                      <div class="channel-label">Direct Email</div>
+                      <div class="channel-val">iniesta.automation@gmail.com ↗</div>
+                    </div>
+                  </a>
+
                   <a href="https://www.upwork.com/freelancers/~01050dd7c24906844a" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
                     <div class="channel-icon">
                       <i data-lucide="briefcase"></i>
@@ -643,31 +653,42 @@
               <!-- Quick Inquiry Form -->
               <div class="inquiry-form-card">
                 <h3 class="form-title">Send a Quick Inquiry</h3>
-                <p class="form-subtitle">Receive an estimate and production timeline breakdown.</p>
+                <p class="form-subtitle">Receive an estimate and production timeline breakdown delivered straight to your inbox.</p>
                 
-                <form id="projectInquiryForm">
+                <form id="projectInquiryForm" action="https://formsubmit.co/iniesta.automation@gmail.com" method="POST">
+                  <!-- FormSubmit.co email routing configuration -->
+                  <input type="hidden" name="_subject" id="formSubject" value="New AI Video Inquiry from Portfolio">
+                  <input type="hidden" name="_captcha" value="false">
+                  <input type="hidden" name="_template" value="table">
+                  <input type="text" name="_honey" style="display:none">
+
                   <div class="form-group">
                     <label class="form-label" for="inquiryName">Your Name / Company</label>
-                    <input type="text" id="inquiryName" class="form-input" placeholder="e.g. Maya Chen / Nova Studios" required>
+                    <input type="text" id="inquiryName" name="name" class="form-input" placeholder="e.g. Maya Chen / Nova Studios" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="inquiryEmail">Your Email Address</label>
+                    <input type="email" id="inquiryEmail" name="email" class="form-input" placeholder="e.g. maya@novastudios.com" required>
                   </div>
 
                   <div class="form-group">
                     <label class="form-label" for="inquiryProjectType">Project Category</label>
-                    <select id="inquiryProjectType" class="form-select">
-                      <option value="AI Video Generation">AI Video Generation (Brand / Commercial)</option>
+                    <select id="inquiryProjectType" name="project_category" class="form-select">
+                      <option value="AI Video Generation (Brand / Commercial)">AI Video Generation (Brand / Commercial)</option>
                       <option value="Motion Graphics & VFX">Motion Graphics &amp; VFX</option>
                       <option value="Editorial & Post-Production">Editorial &amp; Post-Production</option>
-                      <option value="Social-First Video Suite">Social-First Video Suite (Reels/TikTok)</option>
+                      <option value="Social-First Video Suite (Reels/TikTok)">Social-First Video Suite (Reels/TikTok)</option>
                       <option value="AI Voice & Sound Direction">AI Voice &amp; Sound Direction</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label class="form-label" for="inquiryMessage">Project Overview &amp; Timeline</label>
-                    <textarea id="inquiryMessage" class="form-textarea" placeholder="Describe your vision, target platform, and ideal delivery deadline..."></textarea>
+                    <textarea id="inquiryMessage" name="message" class="form-textarea" placeholder="Describe your vision, target platform, and ideal delivery deadline..." required></textarea>
                   </div>
 
-                  <button type="submit" class="form-submit-btn">
+                  <button type="submit" id="inquirySubmitBtn" class="form-submit-btn">
                     <span>Submit Inquiry</span>
                     <i data-lucide="send" class="w-4 h-4"></i>
                   </button>

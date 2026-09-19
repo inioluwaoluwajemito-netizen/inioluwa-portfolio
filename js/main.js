@@ -535,29 +535,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 8. Quick Inquiry Form Submission Simulation
+  // 8. Quick Inquiry Form Submission to iniesta.automation@gmail.com
   const inquiryForm = document.getElementById('projectInquiryForm');
   const inquiryStatus = document.getElementById('inquiryStatusMsg');
+  const inquirySubmitBtn = document.getElementById('inquirySubmitBtn');
 
   if (inquiryForm && inquiryStatus) {
-    inquiryForm.addEventListener('submit', (e) => {
+    inquiryForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const name = document.getElementById('inquiryName').value.trim();
+      const email = document.getElementById('inquiryEmail').value.trim();
       const projectType = document.getElementById('inquiryProjectType').value;
       const message = document.getElementById('inquiryMessage').value.trim();
 
-      if (!name) return;
+      if (!name || !email || !message) return;
 
-      inquiryStatus.className = 'form-status-msg success';
-      inquiryStatus.innerHTML = `
-        <strong>Thank you, ${name}!</strong> Your project inquiry for <em>${projectType || 'AI Video'}</em> has been logged. Inioluwa will connect with you promptly! You can also click the direct WhatsApp or phone numbers below.
-      `;
+      // Set loading state
+      if (inquirySubmitBtn) {
+        inquirySubmitBtn.disabled = true;
+        inquirySubmitBtn.innerHTML = `
+          <span class="form-spinner"></span>
+          <span>Sending Inquiry...</span>
+        `;
+      }
 
-      inquiryForm.reset();
+      inquiryStatus.className = 'form-status-msg';
+      inquiryStatus.style.display = 'none';
 
-      setTimeout(() => {
-        inquiryStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 100);
+      try {
+        const payload = {
+          name: name,
+          email: email,
+          project_category: projectType,
+          message: message,
+          _subject: `New AI Video Portfolio Inquiry from ${name}`,
+          _template: 'table',
+          _captcha: 'false'
+        };
+
+        const response = await fetch('https://formsubmit.co/ajax/iniesta.automation@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && (result.success === 'true' || result.success === true || result.message)) {
+          inquiryStatus.className = 'form-status-msg success';
+          inquiryStatus.innerHTML = `
+            <strong>Inquiry Sent Successfully!</strong><br>
+            Thank you, <strong>${name}</strong>. Your project details have been emailed directly to <strong>iniesta.automation@gmail.com</strong>. Inioluwa will reply to <em>${email}</em> promptly.
+          `;
+          inquiryForm.reset();
+        } else {
+          throw new Error(result.message || 'Submission error');
+        }
+      } catch (err) {
+        console.warn('FormSubmit AJAX notice:', err);
+        // Fallback: If network or blocker interrupts, provide direct mailto link
+        const subject = encodeURIComponent(`Project Inquiry: ${projectType} - ${name}`);
+        const body = encodeURIComponent(`Hi Inioluwa,\n\nName: ${name}\nEmail: ${email}\nProject Category: ${projectType}\n\nProject Overview:\n${message}\n\nSent from your AI Video Specialist portfolio.`);
+        const mailtoLink = `mailto:iniesta.automation@gmail.com?subject=${subject}&body=${body}`;
+
+        inquiryStatus.className = 'form-status-msg error';
+        inquiryStatus.innerHTML = `
+          <strong>Notice:</strong> Direct form transmission could not connect.<br>
+          <a href="${mailtoLink}" style="color: var(--cyan); text-decoration: underline; font-weight: 700; display: inline-block; margin-top: 0.4rem;">
+            Click here to send directly via your email app to iniesta.automation@gmail.com ↗
+          </a>
+        `;
+      } finally {
+        if (inquirySubmitBtn) {
+          inquirySubmitBtn.disabled = false;
+          inquirySubmitBtn.innerHTML = `
+            <span>Submit Inquiry</span>
+            <i data-lucide="send" class="w-4 h-4"></i>
+          `;
+          if (window.lucide) window.lucide.createIcons();
+        }
+        setTimeout(() => {
+          inquiryStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
     });
   }
 });
