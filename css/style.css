@@ -745,6 +745,12 @@ body::after {
     grid-template-columns: 0.8fr 1.2fr;
     gap: 4.5rem;
   }
+
+  .services-layout > div:first-child {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+  }
 }
 
 .services-grid {

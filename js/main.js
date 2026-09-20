@@ -564,34 +564,46 @@ document.addEventListener('DOMContentLoaded', () => {
       inquiryStatus.style.display = 'none';
 
       try {
-        const payload = {
-          name: name,
-          email: email,
-          project_category: projectType,
-          message: message,
-          _subject: `New AI Video Portfolio Inquiry from ${name}`,
-          _template: 'table',
-          _captcha: 'false'
-        };
+        // Dynamically update the hidden _subject field with the user's name
+        const subjectField = document.getElementById('formSubject');
+        if (subjectField) {
+          subjectField.value = `New AI Video Portfolio Inquiry from ${name}`;
+        }
+
+        // Use FormData from the actual form — FormSubmit processes name attributes natively
+        const formData = new FormData(inquiryForm);
 
         const response = await fetch('https://formsubmit.co/ajax/iniesta.automation@gmail.com', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify(payload)
+          body: formData
         });
 
         const result = await response.json();
 
-        if (response.ok && (result.success === 'true' || result.success === true || result.message)) {
+        // Strictly check success — FormSubmit returns success:"false" for activation & errors
+        if (response.ok && (result.success === 'true' || result.success === true)) {
           inquiryStatus.className = 'form-status-msg success';
           inquiryStatus.innerHTML = `
             <strong>Inquiry Sent Successfully!</strong><br>
             Thank you, <strong>${name}</strong>. Your project details have been emailed directly to <strong>iniesta.automation@gmail.com</strong>. Inioluwa will reply to <em>${email}</em> promptly.
           `;
+          inquiryStatus.style.display = 'block';
           inquiryForm.reset();
+
+        } else if (result.message && result.message.toLowerCase().includes('activation')) {
+          // FormSubmit needs email activation — guide the user
+          inquiryStatus.className = 'form-status-msg error';
+          inquiryStatus.innerHTML = `
+            <strong>Almost there!</strong> The form service requires a one-time activation.<br>
+            An activation email was sent to <strong>iniesta.automation@gmail.com</strong>.<br>
+            Please check your <strong>Gmail inbox</strong> (and Spam/Promotions tabs) for an email from <em>FormSubmit.co</em>,
+            click the <strong>"Activate Form"</strong> button, then re-submit your inquiry.
+          `;
+          inquiryStatus.style.display = 'block';
+
         } else {
           throw new Error(result.message || 'Submission error');
         }
@@ -609,6 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
             Click here to send directly via your email app to iniesta.automation@gmail.com ↗
           </a>
         `;
+        inquiryStatus.style.display = 'block';
       } finally {
         if (inquirySubmitBtn) {
           inquirySubmitBtn.disabled = false;
