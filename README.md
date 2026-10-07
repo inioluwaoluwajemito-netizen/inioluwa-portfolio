@@ -1,7 +1,12 @@
 # Inioluwa — AI Video Specialist Portfolio
 ### Iniesta Automation Hub
 
+[![Live Demo](https://img.shields.io/badge/Live_Portfolio-Vercel-23e7f1?style=for-the-badge&logo=vercel&logoColor=black)](https://inioluwa-portfolio-self.vercel.app/)
+[![Upwork](https://img.shields.io/badge/Upwork-Profile-14a800?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/~01050dd7c24906844a)
+
 A high-performance, dark-space web portfolio presenting 19 live AI video productions, prompt architectures, and creative workflows for **Inioluwa** (AI Video Specialist & Creative Technologist).
+
+🌐 **Live Portfolio:** [https://inioluwa-portfolio-self.vercel.app](https://inioluwa-portfolio-self.vercel.app/)
 
 ---
 
@@ -32,13 +37,15 @@ AI VIDEO PORTFOLIO/
 
 ---
 
-## 🚀 Getting Started Locally
-To run this project locally without any dependencies:
+## 🌐 Live Website & Preview
+* **Production URL:** [https://inioluwa-portfolio-self.vercel.app](https://inioluwa-portfolio-self.vercel.app/)
+
+To run this project locally:
 ```bash
 # Python 3 built-in HTTP server
 python -m http.server 3000
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Then visit [https://inioluwa-portfolio-self.vercel.app](https://inioluwa-portfolio-self.vercel.app/) for the live deployment or `http://localhost:3000` for your local test server.
 
 ---
 
