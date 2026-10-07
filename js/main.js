@@ -316,6 +316,42 @@ document.addEventListener('DOMContentLoaded', () => {
       tools: ['Kling AI', 'Cinema 4D / After Effects', 'Runway Gen-3', 'DaVinci Resolve'],
       promptFormula: 'sleek 3D financial motion graphics, black and gold oil barrels stacked on dark reflective trading floor, surrounded by floating golden numerical tickers, glowing chart trajectories, volumetric golden dust, macro lens --ar 9:16',
       pills: ['FinTech Motion', '3D Kinetic Data', 'Kling AI']
+    },
+    '18': {
+      id: '18',
+      title: 'Paradigms to Profit / Masterclass Reel',
+      category: '18 / SOCIAL & CAMPAIGN REEL',
+      tag: 'social',
+      image: 'assets/projects/thumb_d1.png',
+      video: 'assets/videos/video_d1.mp4',
+      description: 'High-retention social reel produced for Alana O\'Regan (Alive Experience), featuring Bob Proctor\'s "Paradigms to Profit" masterclass, dynamic animated kinetic captions, picture-in-picture presenter framing, and branded visual hierarchy.',
+      specs: {
+        resolution: '1080x1920 Vertical HD',
+        fps: '30 fps High-Definition',
+        ratio: '9:16 Vertical Reel',
+        audio: 'Studio Mastered Dialogue & Voiceover'
+      },
+      tools: ['CapCut Pro', 'Adobe Premiere Pro', 'After Effects', 'AI Kinetic Typography'],
+      promptFormula: 'high-converting vertical social reel, 9:16 aspect ratio, branded header "alive experience", Bob Proctor and Alana O\'Regan masterclass graphics, high-contrast kinetic typography, punchy pacing',
+      pills: ['Short-Form Reel', 'Kinetic Typography', 'Brand Repurposing']
+    },
+    '19': {
+      id: '19',
+      title: 'Creative Process / Mindset Blueprint',
+      category: '19 / EDUCATIONAL SHORT-FORM',
+      tag: 'social',
+      image: 'assets/projects/thumb_d2.png',
+      video: 'assets/videos/video_d2.mp4',
+      description: 'Engaging educational short-form reel illustrating "The Creative Process: Fantasy, Theory (Goal), and Fact" with integrated diagram visualization, synchronized kinetic captions, and multi-element branding.',
+      specs: {
+        resolution: '1080x1920 Vertical HD',
+        fps: '30 fps High-Definition',
+        ratio: '9:16 Vertical Reel',
+        audio: 'Clear Dialogue Master & Acoustic EQ'
+      },
+      tools: ['CapCut Pro', 'Adobe Premiere Pro', 'After Effects', 'AI Kinetic Typography'],
+      promptFormula: 'vertical educational coaching reel, 9:16 layout, Alive Experience branded header, creative process diagram animation, speaker picture-in-picture reaction, high-contrast dynamic captions',
+      pills: ['Educational Reel', 'Kinetic Subtitles', 'Alive Experience']
     }
   };
 

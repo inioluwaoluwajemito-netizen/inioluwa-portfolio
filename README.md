@@ -1,12 +1,12 @@
 # Inioluwa — AI Video Specialist Portfolio
 ### Iniesta Automation Hub
 
-A high-performance, dark-space web portfolio presenting 17 live AI video productions, prompt architectures, and creative workflows for **Inioluwa** (AI Video Specialist & Creative Technologist).
+A high-performance, dark-space web portfolio presenting 19 live AI video productions, prompt architectures, and creative workflows for **Inioluwa** (AI Video Specialist & Creative Technologist).
 
 ---
 
 ## 🌟 Highlights & Features
-* **17 Live Video Productions:** High-definition video playback in custom interactive lightbox modals with prompt formulas and technical specs.
+* **19 Live Video Productions:** High-definition video playback in custom interactive lightbox modals with prompt formulas and technical specs.
 * **Keynote Showreel:** Autoplay hero video showreel card featuring presenter commercial direction.
 * **Category Filtering:** Real-time filtering across Brand Film, Motion Study, Post-Production, AI Campaign, Social Content, and Voice + Sound.
 * **Fluid Dark-Mode UI:** Custom-built glassmorphism design system using Cyber Cyan (`#23e7f1`), Electric Crimson (`#ff3857`), Deep Navy (`#06152d`), and Midnight Void (`#020916`).
@@ -17,7 +17,7 @@ A high-performance, dark-space web portfolio presenting 17 live AI video product
 ## 📁 Repository Structure
 ```
 AI VIDEO PORTFOLIO/
-├── index.html                   # Semantic HTML5 structure with 17 live project cards
+├── index.html                   # Semantic HTML5 structure with 19 live project cards
 ├── css/
 │   └── style.css                # Fluid typography, dark-space styling, animations
 ├── js/
