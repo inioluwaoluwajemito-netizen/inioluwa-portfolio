@@ -600,6 +600,17 @@ document.addEventListener('DOMContentLoaded', () => {
       inquiryStatus.style.display = 'none';
 
       try {
+        // Check if opened via local file protocol (file://)
+        if (window.location.protocol === 'file:') {
+          inquiryStatus.className = 'form-status-msg error';
+          inquiryStatus.innerHTML = `
+            <strong>Local Preview Notice:</strong> Browser security restricts external form submission when opening HTML directly from disk (<code>file:///</code>).<br>
+            Please test this on your live site: <a href="https://inioluwa-portfolio-self.vercel.app/#contact" target="_blank" style="color: var(--cyan); text-decoration: underline;">inioluwa-portfolio-self.vercel.app</a> or via local server (<code>python -m http.server 3000</code>).
+          `;
+          inquiryStatus.style.display = 'block';
+          return;
+        }
+
         // Dynamically update the hidden _subject field with the user's name
         const subjectField = document.getElementById('formSubject');
         if (subjectField) {
@@ -619,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const result = await response.json();
 
-        // Strictly check success — FormSubmit returns success:"false" for activation & errors
+        // Check success
         if (response.ok && (result.success === 'true' || result.success === true)) {
           inquiryStatus.className = 'form-status-msg success';
           inquiryStatus.innerHTML = `
@@ -629,14 +640,22 @@ document.addEventListener('DOMContentLoaded', () => {
           inquiryStatus.style.display = 'block';
           inquiryForm.reset();
 
-        } else if (result.message && result.message.toLowerCase().includes('activation')) {
-          // FormSubmit needs email activation — guide the user
+        } else if (result.message && result.message.toLowerCase().includes('activat')) {
+          // FormSubmit needs 1-click email activation
           inquiryStatus.className = 'form-status-msg error';
           inquiryStatus.innerHTML = `
-            <strong>Almost there!</strong> The form service requires a one-time activation.<br>
-            An activation email was sent to <strong>iniesta.automation@gmail.com</strong>.<br>
-            Please check your <strong>Gmail inbox</strong> (and Spam/Promotions tabs) for an email from <em>FormSubmit.co</em>,
-            click the <strong>"Activate Form"</strong> button, then re-submit your inquiry.
+            <strong>One-Time Activation Required:</strong><br>
+            FormSubmit has sent an activation link to <strong>iniesta.automation@gmail.com</strong>.<br>
+            Please open your <strong>Gmail inbox</strong> (or Spam/Promotions tab), look for an email from <em>FormSubmit</em>, and click <strong>"Activate Form"</strong>.<br>
+            Once clicked, this form is permanently activated and every inquiry will be delivered to your inbox automatically!
+          `;
+          inquiryStatus.style.display = 'block';
+
+        } else if (result.message && (result.message.toLowerCase().includes('web server') || result.message.toLowerCase().includes('html file'))) {
+          inquiryStatus.className = 'form-status-msg error';
+          inquiryStatus.innerHTML = `
+            <strong>Web Server Required:</strong> FormSubmit requires requests to come from a live web server.<br>
+            Please submit this on your live Vercel site: <a href="https://inioluwa-portfolio-self.vercel.app/#contact" target="_blank" style="color: var(--cyan); text-decoration: underline;">inioluwa-portfolio-self.vercel.app</a>.
           `;
           inquiryStatus.style.display = 'block';
 
@@ -652,7 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         inquiryStatus.className = 'form-status-msg error';
         inquiryStatus.innerHTML = `
-          <strong>Notice:</strong> Direct form transmission could not connect.<br>
+          <strong>Notice:</strong> Direct form transmission could not connect (${err.message || 'Network blocked'}).<br>
           <a href="${mailtoLink}" style="color: var(--cyan); text-decoration: underline; font-weight: 700; display: inline-block; margin-top: 0.4rem;">
             Click here to send directly via your email app to iniesta.automation@gmail.com ↗
           </a>
