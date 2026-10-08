@@ -352,6 +352,24 @@ document.addEventListener('DOMContentLoaded', () => {
       tools: ['CapCut Pro', 'Adobe Premiere Pro', 'After Effects', 'AI Kinetic Typography'],
       promptFormula: 'vertical educational coaching reel, 9:16 layout, Alive Experience branded header, creative process diagram animation, speaker picture-in-picture reaction, high-contrast dynamic captions',
       pills: ['Educational Reel', 'Kinetic Subtitles', 'Alive Experience']
+    },
+    '20': {
+      id: '20',
+      title: 'New Standard / Luxury Estate Living',
+      category: '20 / ARCHITECTURAL & REAL ESTATE FILM',
+      tag: 'brand',
+      image: 'assets/projects/thumb_d3.png',
+      video: 'assets/videos/video_d3.mp4',
+      description: 'Cinematic luxury real estate architectural showcase directing aerial drone flyovers, sunlit interior walkthroughs, manicured landscape views, and high-conversion commercial narration for modern estate living.',
+      specs: {
+        resolution: '1920x1080 Full HD',
+        fps: '30 fps Cinematic',
+        ratio: '16:9 Landscape',
+        audio: 'Studio Mastered Narration & Ambient Score'
+      },
+      tools: ['Runway Gen-3', 'Luma Dream Machine', 'After Effects', 'ElevenLabs Voice'],
+      promptFormula: 'cinematic aerial drone shot of modern luxury gated villa estate, photorealistic architectural rendering, warm golden hour sunlight, lush manicured hedges and roads, smooth 4k gimbal push-in --ar 16:9',
+      pills: ['Architectural Film', 'Real Estate Commercial', 'Cinematic Drone']
     }
   };
 
