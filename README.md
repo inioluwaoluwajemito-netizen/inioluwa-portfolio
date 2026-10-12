@@ -51,4 +51,4 @@ Then visit [https://inioluwa-portfolio-self.vercel.app](https://inioluwa-portfol
 
 ## 📬 Contact & Hire
 * **Upwork:** [Inioluwa on Upwork](https://www.upwork.com/freelancers/~01050dd7c24906844a)
-* **Phone:** `081062737` / `08135384333`
+* **Phone:** `08106273746` / `08135384333`

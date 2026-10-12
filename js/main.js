@@ -629,21 +629,34 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // Dynamically update the hidden _subject field with the user's name
+        // Dynamically update the hidden fields
         const subjectField = document.getElementById('formSubject');
         if (subjectField) {
-          subjectField.value = `New AI Video Portfolio Inquiry from ${name}`;
+          subjectField.value = `New AI Video Portfolio Inquiry from ${name} (${projectType})`;
+        }
+        const replyToField = document.getElementById('formReplyTo');
+        if (replyToField) {
+          replyToField.value = email;
         }
 
-        // Use FormData from the actual form — FormSubmit processes name attributes natively
-        const formData = new FormData(inquiryForm);
+        // Send structured JSON payload to FormSubmit so every field is guaranteed to display clearly
+        const payload = {
+          "Client Name": name,
+          "Client Email": email,
+          "Project Category": projectType,
+          "Project Overview & Timeline": message,
+          "_replyto": email,
+          "_subject": `New Inquiry from ${name} - ${projectType}`,
+          "_template": "box"
+        };
 
         const response = await fetch('https://formsubmit.co/ajax/iniesta.automation@gmail.com', {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: formData
+          body: JSON.stringify(payload)
         });
 
         const result = await response.json();
