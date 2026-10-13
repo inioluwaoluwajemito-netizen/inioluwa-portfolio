@@ -494,6 +494,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = projectsData[projectId];
     if (!data || !modal) return;
 
+    // Pause any card hover preview videos
+    document.querySelectorAll('.work-video-preview').forEach(v => {
+      v.pause();
+    });
+    document.querySelectorAll('.work-card.is-previewing').forEach(c => {
+      c.classList.remove('is-previewing');
+    });
+
     // Handle video vs image preview
     if (data.video && modalVideo) {
       modalVideo.style.display = 'block';
@@ -607,7 +615,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 8. Quick Inquiry Form Submission to iniesta.automation@gmail.com
+  // 8. Dynamic Hover Video Previews for Portfolio Cards
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.matchMedia('(hover: none)').matches;
+
+  workCards.forEach(card => {
+    const id = card.getAttribute('data-id');
+    const data = projectsData[id];
+    if (!data || !data.video) return;
+
+    // Create a lazy preview video element
+    const previewVideo = document.createElement('video');
+    previewVideo.className = 'work-video-preview';
+    previewVideo.muted = true;
+    previewVideo.loop = true;
+    previewVideo.playsInline = true;
+    previewVideo.setAttribute('playsinline', '');
+    previewVideo.setAttribute('muted', '');
+    previewVideo.preload = 'none';
+    previewVideo.dataset.src = data.video;
+
+    // Smooth reveal once initial frame data is ready
+    previewVideo.addEventListener('loadeddata', () => {
+      previewVideo.classList.add('video-ready');
+    });
+
+    // Place video before overlay so dark gradient stays on top
+    const overlay = card.querySelector('.work-overlay');
+    if (overlay) {
+      card.insertBefore(previewVideo, overlay);
+    } else {
+      card.appendChild(previewVideo);
+    }
+
+    if (!isTouchDevice) {
+      let hoverTimeout = null;
+      let playPromise = null;
+
+      card.addEventListener('mouseenter', () => {
+        hoverTimeout = setTimeout(() => {
+          if (!previewVideo.src) {
+            previewVideo.src = previewVideo.dataset.src;
+            previewVideo.load();
+          }
+          card.classList.add('is-previewing');
+          playPromise = previewVideo.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {});
+          }
+        }, 90);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (hoverTimeout) {
+          clearTimeout(hoverTimeout);
+          hoverTimeout = null;
+        }
+        card.classList.remove('is-previewing');
+        if (playPromise !== undefined && playPromise) {
+          playPromise.then(() => {
+            previewVideo.pause();
+            previewVideo.currentTime = 0;
+          }).catch(() => {
+            previewVideo.pause();
+          });
+        } else {
+          previewVideo.pause();
+          previewVideo.currentTime = 0;
+        }
+      });
+    }
+  });
+
+  // 9. Quick Inquiry Form Submission to iniesta.automation@gmail.com
   const inquiryForm = document.getElementById('projectInquiryForm');
   const inquiryStatus = document.getElementById('inquiryStatusMsg');
   const inquirySubmitBtn = document.getElementById('inquirySubmitBtn');
