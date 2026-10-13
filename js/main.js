@@ -370,6 +370,24 @@ document.addEventListener('DOMContentLoaded', () => {
       tools: ['Runway Gen-3', 'Luma Dream Machine', 'After Effects', 'ElevenLabs Voice'],
       promptFormula: 'cinematic aerial drone shot of modern luxury gated villa estate, photorealistic architectural rendering, warm golden hour sunlight, lush manicured hedges and roads, smooth 4k gimbal push-in --ar 16:9',
       pills: ['Architectural Film', 'Real Estate Commercial', 'Cinematic Drone']
+    },
+    '21': {
+      id: '21',
+      title: 'Direct Response / Home Remodel UGC Hook',
+      category: '21 / UGC & DIRECT-RESPONSE HOOK',
+      tag: 'social',
+      image: 'assets/projects/thumb_d4.png',
+      video: 'assets/videos/video_d4.mp4',
+      description: 'High-retention UGC direct-response hook ad for a bathroom remodeling service, featuring relatable storytelling, customer reaction framing, kinetic yellow caption blocks, and service pricing hook.',
+      specs: {
+        resolution: '1080x1920 Vertical HD',
+        fps: '30 fps High-Definition',
+        ratio: '9:16 Vertical Reel',
+        audio: 'Crisp Dialogue & Street Ambience EQ'
+      },
+      tools: ['CapCut Pro', 'Premiere Pro', 'AI Kinetic Typography', 'Audio Sweetening'],
+      promptFormula: 'vertical UGC creator style video, 9:16 aspect ratio, shocked female homeowner outside house, direct-to-camera conversation, high-contrast yellow subtitle banner "how much does an installation like this cost?", punchy pacing',
+      pills: ['UGC Hook Ad', 'Direct Response', 'Home Remodeling']
     }
   };
 
