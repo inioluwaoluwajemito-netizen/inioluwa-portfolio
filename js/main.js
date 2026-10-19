@@ -388,6 +388,24 @@ document.addEventListener('DOMContentLoaded', () => {
       tools: ['CapCut Pro', 'Premiere Pro', 'AI Kinetic Typography', 'Audio Sweetening'],
       promptFormula: 'vertical UGC creator style video, 9:16 aspect ratio, shocked female homeowner outside house, direct-to-camera conversation, high-contrast yellow subtitle banner "how much does an installation like this cost?", punchy pacing',
       pills: ['UGC Hook Ad', 'Direct Response', 'Home Remodeling']
+    },
+    '22': {
+      id: '22',
+      title: 'Apex Cinema / Bugatti Hypercar Commercial',
+      category: '22 / LUXURY AUTOMOTIVE & BRAND COMMERCIAL',
+      tag: 'brand',
+      image: 'assets/projects/thumb_d5.png',
+      video: 'assets/videos/video_d5.mp4',
+      description: 'High-octane luxury automotive commercial directing photorealistic generative camera sweeps, reflections, obsidian marble showroom lighting, and studio sound mastering for elite hypercars.',
+      specs: {
+        resolution: '1920x1080 Full HD',
+        fps: '30 fps Cinematic',
+        ratio: '16:9 Landscape',
+        audio: 'Studio Mastered Engine Acoustics & Score'
+      },
+      tools: ['Runway Gen-3', 'Luma Dream Machine', 'After Effects', 'AI Sound Design'],
+      promptFormula: 'cinematic commercial shot of Bugatti Chiron hypercar parked in ultra-luxury minimalist showroom, glossy obsidian marble reflections, rim lighting, 8k raytracing, camera push-in --ar 16:9',
+      pills: ['Automotive Commercial', 'Hypercar Cinema', 'Luxury Brand Film']
     }
   };
 
