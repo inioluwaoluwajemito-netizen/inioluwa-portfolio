@@ -839,7 +839,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 10. Interactive WhatsApp Chatbot Widget (+2348135384333)
+  // 10. Multi-Turn Interactive WhatsApp AI Chatbot (+2348135384333)
   const waLauncherBtn = document.getElementById('waLauncherBtn');
   const waChatWindow = document.getElementById('waChatWindow');
   const waCloseBtn = document.getElementById('waCloseBtn');
@@ -847,9 +847,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const waChatFooter = document.getElementById('waChatFooter');
   const waChatInput = document.getElementById('waChatInput');
   const waUnreadBadge = document.getElementById('waUnreadBadge');
-  const waQuickReplies = document.getElementById('waQuickReplies');
 
   const WA_PHONE = '2348135384333'; // Direct Nigerian WhatsApp format for 08135384333
+
+  // Conversational state to qualify client before WhatsApp hand-off
+  let chatState = {
+    step: 0, // 0: Service, 1: Format/Length, 2: Timeline, 3: Client Details / Notes, 4: Handover
+    service: '',
+    format: '',
+    timeline: '',
+    notes: '',
+    clientName: ''
+  };
 
   function toggleWaChat(forceOpen = null) {
     if (!waChatWindow || !waLauncherBtn) return;
@@ -920,7 +929,7 @@ document.addEventListener('DOMContentLoaded', () => {
     waChatBody.scrollTop = waChatBody.scrollHeight;
   }
 
-  function showBotTyping(callback, delay = 600) {
+  function showBotTyping(callback, delay = 550) {
     if (!waChatBody) return;
     const typingBubble = document.createElement('div');
     typingBubble.className = 'wa-bubble bot wa-typing-indicator';
@@ -940,69 +949,223 @@ document.addEventListener('DOMContentLoaded', () => {
     }, delay);
   }
 
-  function openWhatsAppDirect(message) {
-    const encoded = encodeURIComponent(message);
-    const url = `https://wa.me/${WA_PHONE}?text=${encoded}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+  function renderChips(optionsList, onSelect) {
+    if (!waChatBody) return;
+    const container = document.createElement('div');
+    container.className = 'wa-quick-replies';
+
+    optionsList.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'wa-chip';
+      btn.innerHTML = `<span>${opt.label}</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>`;
+
+      btn.addEventListener('click', () => {
+        container.querySelectorAll('.wa-chip').forEach(b => {
+          b.classList.add('disabled');
+        });
+        btn.classList.add('selected');
+        onSelect(opt);
+      });
+
+      container.appendChild(btn);
+    });
+
+    waChatBody.appendChild(container);
+    waChatBody.scrollTop = waChatBody.scrollHeight;
+    if (window.lucide) window.lucide.createIcons();
   }
 
-  // Quick Chips Interactions
-  if (waQuickReplies) {
-    const chips = waQuickReplies.querySelectorAll('.wa-chip');
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        const intent = chip.getAttribute('data-intent');
-        const chipText = chip.textContent.trim();
+  function generateWhatsAppUrl(state) {
+    let msg = `Hi Inioluwa! I just configured an AI video project brief on your portfolio:\n\n`;
+    if (state.service) msg += `📌 Service: ${state.service}\n`;
+    if (state.format) msg += `📐 Format & Length: ${state.format}\n`;
+    if (state.timeline) msg += `⏱️ Timeline: ${state.timeline}\n`;
+    if (state.clientName) msg += `👤 Client / Brand: ${state.clientName}\n`;
+    if (state.notes && state.notes !== state.clientName) msg += `📝 Notes / Vision: ${state.notes}\n`;
+    msg += `\nI'd like to discuss creative direction and get this scheduled with you!`;
 
-        appendChatBubble('user', `<p>${chipText}</p>`);
+    return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
+  }
 
-        if (intent === 'direct') {
-          showBotTyping(() => {
-            const waMsg = `Hi Inioluwa, I found your portfolio and would like to chat directly about a video project.`;
-            appendChatBubble('bot', 
-              `<p>Opening direct chat with Inioluwa on WhatsApp now! Click the button below if your browser did not automatically open WhatsApp.</p>`,
-              { text: 'Chat with Inioluwa (08135384333)', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
-            );
-            openWhatsAppDirect(waMsg);
-          });
-        } else if (intent === 'brand') {
-          showBotTyping(() => {
-            const waMsg = `Hi Inioluwa, I'm interested in commissioning a Brand Film / Commercial video production.`;
-            appendChatBubble('bot',
-              `<p>Great choice! Inioluwa directs high-end cinematic commercials using Runway Gen-3, Midjourney, and post-production grading.</p><p style="margin-top: 6px;">Tap below to send this directly to Inioluwa on WhatsApp:</p>`,
-              { text: 'Start Brand Film Discussion ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
-            );
-          });
-        } else if (intent === 'ugc') {
-          showBotTyping(() => {
-            const waMsg = `Hi Inioluwa, I want to scale high-converting UGC Hook and Direct-Response Video Ads for our campaign.`;
-            appendChatBubble('bot',
-              `<p>We engineer retention-focused UGC hooks with dynamic kinetic captions and pricing callouts optimized for TikTok, Reels & Meta Ads.</p><p style="margin-top: 6px;">Let's discuss scripts & hooks on WhatsApp:</p>`,
-              { text: 'Discuss UGC Hook Ads ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
-            );
-          });
-        } else if (intent === 'avatar') {
-          showBotTyping(() => {
-            const waMsg = `Hi Inioluwa, I would like to create AI Avatars and Talking Head videos.`;
-            appendChatBubble('bot',
-              `<p>We deliver lifelike AI-generated presenters, multi-lingual spokespeople, and course presenters that scale video output rapidly.</p><p style="margin-top: 6px;">Connect with Inioluwa on WhatsApp:</p>`,
-              { text: 'Plan AI Avatar Video ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
-            );
-          });
-        } else if (intent === 'quote') {
-          showBotTyping(() => {
-            const waMsg = `Hi Inioluwa, I'd like to get a quote and timeline for an upcoming AI video production.`;
-            appendChatBubble('bot',
-              `<p>Standard turnarounds range between <strong>24 to 72 hours</strong>. Share your project goals and references directly on WhatsApp for an accurate estimate.</p>`,
-              { text: 'Get Instant WhatsApp Quote ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
-            );
-          });
+  function showFinalHandover() {
+    chatState.step = 4;
+    showBotTyping(() => {
+      const waUrl = generateWhatsAppUrl(chatState);
+
+      const summaryHtml = `
+        <p>🎉 <strong>Project Brief Complete!</strong></p>
+        <p style="margin-top: 4px;">I've organized your project specifications into a custom intake card:</p>
+        <div class="wa-summary-card">
+          <div class="wa-summary-header">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Project Intake Summary</span>
+          </div>
+          <div class="wa-summary-row">
+            <span class="wa-summary-label">Service</span>
+            <span class="wa-summary-val">${chatState.service || 'Custom AI Video'}</span>
+          </div>
+          <div class="wa-summary-row">
+            <span class="wa-summary-label">Format</span>
+            <span class="wa-summary-val">${chatState.format || 'Standard Cut'}</span>
+          </div>
+          <div class="wa-summary-row">
+            <span class="wa-summary-label">Timeline</span>
+            <span class="wa-summary-val">${chatState.timeline || 'Standard (3–5 Days)'}</span>
+          </div>
+          ${chatState.clientName ? `
+          <div class="wa-summary-row">
+            <span class="wa-summary-label">Client / Brand</span>
+            <span class="wa-summary-val">${chatState.clientName}</span>
+          </div>` : ''}
+          ${chatState.notes && chatState.notes !== chatState.clientName ? `
+          <div class="wa-summary-row">
+            <span class="wa-summary-label">Vision Notes</span>
+            <span class="wa-summary-val">${chatState.notes}</span>
+          </div>` : ''}
+        </div>
+        <p style="font-size: 0.84rem; color: #bed2ea; margin-top: 4px;">Click the button below to send this complete brief directly to Inioluwa's WhatsApp (<strong>08135384333</strong>) — everything is pre-formatted for an immediate response:</p>
+        <div class="wa-handover-actions">
+          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="wa-handover-btn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.02L7.55 18.84L4.44 19.66L5.27 16.63L5.07 16.31C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.03C9.36 7.03 9.08 7.09 8.84 7.35C8.61 7.61 7.94 8.23 7.94 9.5C7.94 10.77 8.86 12 9 12.18C9.13 12.35 10.8 14.93 13.36 16.03C15.5 16.95 15.93 16.76 16.39 16.72C16.85 16.68 17.89 16.11 18.11 15.5C18.33 14.88 18.33 14.36 18.26 14.25C18.2 14.13 18.03 14.07 17.77 13.94C17.51 13.82 16.24 13.19 16 13.11C15.77 13.02 15.6 12.98 15.43 13.23C15.26 13.49 14.77 14.07 14.62 14.25C14.47 14.42 14.33 14.44 14.07 14.31C13.81 14.19 12.98 13.91 12 13.04C11.24 12.36 10.72 11.53 10.57 11.27C10.43 11.01 10.55 10.87 10.68 10.74C10.8 10.62 10.94 10.43 11.08 10.28C11.22 10.13 11.27 10.02 11.36 9.84C11.44 9.67 11.4 9.52 11.34 9.4C11.28 9.27 10.78 8.04 10.57 7.54C10.37 7.06 10.16 7.12 10.78 8.04 10.57 7.54C10.37 7.06 10.16 7.12 10 7.12C9.86 7.11 9.69 7.03 9.53 7.03Z"/>
+            </svg>
+            <span>Send Brief to Inioluwa on WhatsApp ↗</span>
+          </a>
+          <button type="button" class="wa-secondary-btn" id="waRestartBtn">
+            <span>🔄 Edit Brief / Restart Intake</span>
+          </button>
+        </div>
+      `;
+
+      appendChatBubble('bot', summaryHtml);
+      if (window.lucide) window.lucide.createIcons();
+
+      const restartBtn = document.getElementById('waRestartBtn');
+      if (restartBtn) {
+        restartBtn.addEventListener('click', () => {
+          startConversation();
+        });
+      }
+    }, 700);
+  }
+
+  // Step 3: Timeline chosen -> Ask Client details / brief notes
+  function askClientDetails(timelineChosen) {
+    chatState.timeline = timelineChosen;
+    chatState.step = 3;
+
+    showBotTyping(() => {
+      appendChatBubble('bot',
+        `<p>Got it — timeline noted as <strong>${timelineChosen}</strong>.</p>` +
+        `<p style="margin-top: 6px;">Lastly, what is your <strong>name or brand name</strong>, and do you have any specific vision or reference in mind?</p>` +
+        `<p style="margin-top: 4px; font-size: 0.8rem; color: #9eb8d5;"><em>(Type your message below, or click 'Skip' to finalize)</em></p>`
+      );
+
+      if (waChatInput) {
+        waChatInput.placeholder = 'Type your name or project notes...';
+        waChatInput.focus();
+      }
+
+      renderChips([
+        { label: '⏩ Skip notes & finish brief', value: 'SKIP' },
+        { label: '💬 Send brief directly to WhatsApp', value: 'DIRECT' }
+      ], (opt) => {
+        appendChatBubble('user', `<p>${opt.label}</p>`);
+        showFinalHandover();
+      });
+    });
+  }
+
+  // Step 2: Format selection -> Ask Timeline
+  function askTimeline(formatChosen) {
+    chatState.format = formatChosen;
+    chatState.step = 2;
+
+    showBotTyping(() => {
+      appendChatBubble('bot', 
+        `<p>Noted! <strong>${formatChosen}</strong> is a great choice.</p>` +
+        `<p style="margin-top: 6px;">How soon do you need the final cut delivered?</p>`
+      );
+
+      renderChips([
+        { label: '⚡ Fast Track (24–48 Hours)', value: 'Fast Track (24–48 Hours)' },
+        { label: '🚀 Standard (3–5 Days)', value: 'Standard (3–5 Days)' },
+        { label: '🗓️ Flexible (1–2 Weeks)', value: 'Flexible (1–2 Weeks)' },
+        { label: '💬 Skip & Chat on WhatsApp now', value: 'DIRECT' }
+      ], (opt) => {
+        appendChatBubble('user', `<p>${opt.label}</p>`);
+        if (opt.value === 'DIRECT') {
+          showFinalHandover();
+        } else {
+          askClientDetails(opt.value);
         }
       });
     });
   }
 
-  // Chat Footer Form Send
+  // Step 1: Service chosen -> Ask format
+  function askFormat(serviceChosen) {
+    chatState.service = serviceChosen;
+    chatState.step = 1;
+
+    let insight = 'Brand films deliver cinematic authority with Runway Gen-3 & Midjourney visual direction.';
+    if (serviceChosen.includes('UGC')) insight = 'UGC hooks use kinetic typography and relatable framing to maximize ad retention on Meta & TikTok.';
+    else if (serviceChosen.includes('Avatar')) insight = 'AI Avatars produce high-fidelity digital spokespeople and multilingual presenters without studio costs.';
+    else if (serviceChosen.includes('Motion')) insight = 'Motion graphics & VFX add 3D camera sweeps, grading, and title sequences to your footage.';
+
+    showBotTyping(() => {
+      appendChatBubble('bot',
+        `<p>Awesome! ${insight}</p>` +
+        `<p style="margin-top: 6px;">What <strong>aspect ratio & length</strong> best fits your distribution?</p>`
+      );
+
+      renderChips([
+        { label: '📱 15s–30s Vertical Hook (Reels / TikTok 9:16)', value: '15-30s Vertical (9:16)' },
+        { label: '🖥️ 60s–90s Landscape Film (YouTube / Web 16:9)', value: '60-90s Landscape (16:9)' },
+        { label: '📦 Multi-Format Asset Bundle (16:9 + 9:16)', value: 'Multi-Format Asset Bundle' },
+        { label: '💡 Need Creative Guidance', value: 'Creative Guidance' }
+      ], (opt) => {
+        appendChatBubble('user', `<p>${opt.label}</p>`);
+        askTimeline(opt.value);
+      });
+    });
+  }
+
+  // Step 0: Initial Greeting
+  function startConversation() {
+    if (!waChatBody) return;
+    waChatBody.innerHTML = `
+      <div class="wa-chat-timestamp">Today</div>
+      <div class="wa-bubble bot">
+        <div class="wa-bubble-content">
+          <p>Hey there! 👋 Welcome to <strong>Iniesta Automation Hub</strong>.</p>
+          <p style="margin-top: 6px;">I'm Inioluwa's interactive AI assistant. I'll help you structure your project scope and quote before connecting with Inioluwa on WhatsApp.</p>
+          <p style="margin-top: 6px;">What type of video production are you looking to create?</p>
+        </div>
+        <span class="wa-bubble-time">${createTimeStr()}</span>
+      </div>
+    `;
+
+    chatState = { step: 0, service: '', format: '', timeline: '', notes: '', clientName: '' };
+    if (waChatInput) waChatInput.placeholder = 'Type your message or project brief...';
+
+    renderChips([
+      { label: '🎬 Brand Film / Commercial', value: 'Brand Film / Commercial' },
+      { label: '⚡ UGC Hook & Video Ads', value: 'UGC Hook & Video Ads' },
+      { label: '🤖 AI Avatars & Talking Heads', value: 'AI Avatars & Talking Heads' },
+      { label: '🎨 Motion Graphics & VFX', value: 'Motion Graphics & VFX' },
+      { label: '💬 General Inquiry / Direct Quote', value: 'General Inquiry' }
+    ], (opt) => {
+      appendChatBubble('user', `<p>${opt.label}</p>`);
+      askFormat(opt.value);
+    });
+  }
+
+  // Initialize initial conversation state
+  startConversation();
+
+  // Chat Footer Form Send (Freeform text handling across conversation steps)
   if (waChatFooter && waChatInput) {
     waChatFooter.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -1012,16 +1175,17 @@ document.addEventListener('DOMContentLoaded', () => {
       appendChatBubble('user', `<p>${userText}</p>`);
       waChatInput.value = '';
 
-      showBotTyping(() => {
-        const waMsg = `Hi Inioluwa, I have a project inquiry from your portfolio:\n\n"${userText}"\n\nLooking forward to hearing from you!`;
-        appendChatBubble('bot',
-          `<p>Got it! Transferring your message to Inioluwa's direct WhatsApp line (<strong>08135384333</strong>)...</p>`,
-          { text: 'Continue on WhatsApp ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
-        );
-        setTimeout(() => {
-          openWhatsAppDirect(waMsg);
-        }, 400);
-      });
+      if (chatState.step === 0) {
+        askFormat(userText);
+      } else if (chatState.step === 1) {
+        askTimeline(userText);
+      } else if (chatState.step === 2) {
+        askClientDetails(userText);
+      } else {
+        chatState.notes = userText;
+        chatState.clientName = userText;
+        showFinalHandover();
+      }
     });
   }
 });

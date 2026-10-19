@@ -2012,6 +2012,118 @@ body::after {
   box-shadow: 0 6px 16px rgba(37, 211, 102, 0.45);
 }
 
+.wa-chip.disabled {
+  opacity: 0.55;
+  pointer-events: none;
+  background: rgba(8, 28, 57, 0.45);
+  border-color: rgba(159, 212, 241, 0.1);
+}
+
+.wa-chip.selected {
+  border-color: var(--cyan);
+  background: rgba(35, 231, 241, 0.18);
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.wa-summary-card {
+  background: rgba(2, 9, 22, 0.7);
+  border: 1px solid rgba(35, 231, 241, 0.35);
+  border-radius: 10px;
+  padding: 0.85rem;
+  margin: 0.6rem 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.wa-summary-header {
+  color: var(--cyan);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.wa-summary-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(159, 212, 241, 0.1);
+  padding: 0.25rem 0;
+}
+
+.wa-summary-row:last-child {
+  border-bottom: none;
+}
+
+.wa-summary-label {
+  color: #8da4be;
+}
+
+.wa-summary-val {
+  color: var(--white);
+  font-weight: 600;
+  text-align: right;
+  max-width: 60%;
+}
+
+.wa-handover-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.wa-handover-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.wa-handover-btn:hover {
+  background: linear-gradient(135deg, #2fe872 0%, #17a999 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.5);
+}
+
+.wa-secondary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(159, 212, 241, 0.2);
+  color: var(--mist);
+  font-size: 0.78rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wa-secondary-btn:hover {
+  background: rgba(35, 231, 241, 0.1);
+  color: var(--white);
+  border-color: var(--cyan);
+}
+
 /* Typing Dots */
 .wa-typing-dots {
   display: inline-flex;
