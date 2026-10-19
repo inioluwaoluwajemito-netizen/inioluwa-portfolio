@@ -1106,6 +1106,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Step 1: Service chosen -> Ask format
   function askFormat(serviceChosen) {
+    if (serviceChosen === 'TIKTOK') {
+      showBotTyping(() => {
+        appendChatBubble('bot',
+          `<p>Check out our latest AI video experiments, commercial reels, and production breakdowns on TikTok:</p>` +
+          `<p style="margin-top: 8px;"><a href="https://www.tiktok.com/@iniesta.automation1" target="_blank" rel="noopener noreferrer" class="wa-handover-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; padding: 0.6rem 1rem; font-size: 0.82rem;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.96-4.49V8.69a8.18 8.18 0 0 0 4.81 1.55v-3.5a4.89 4.89 0 0 1-1-.05z"/></svg> Open @iniesta.automation1 on TikTok ↗</a></p>` +
+          `<p style="margin-top: 10px;">What kind of video production would you like to build for your brand?</p>`
+        );
+
+        renderChips([
+          { label: '🎬 Brand Film / Commercial', value: 'Brand Film / Commercial' },
+          { label: '⚡ UGC Hook & Video Ads', value: 'UGC Hook & Video Ads' },
+          { label: '🤖 AI Avatars & Talking Heads', value: 'AI Avatars & Talking Heads' },
+          { label: '🎨 Motion Graphics & VFX', value: 'Motion Graphics & VFX' },
+          { label: '💬 General Inquiry / Direct Quote', value: 'General Inquiry' }
+        ], (opt) => {
+          appendChatBubble('user', `<p>${opt.label}</p>`);
+          askFormat(opt.value);
+        });
+      });
+      return;
+    }
+
     chatState.service = serviceChosen;
     chatState.step = 1;
 
@@ -1155,6 +1177,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { label: '⚡ UGC Hook & Video Ads', value: 'UGC Hook & Video Ads' },
       { label: '🤖 AI Avatars & Talking Heads', value: 'AI Avatars & Talking Heads' },
       { label: '🎨 Motion Graphics & VFX', value: 'Motion Graphics & VFX' },
+      { label: '📱 TikTok (@iniesta.automation1)', value: 'TIKTOK' },
       { label: '💬 General Inquiry / Direct Quote', value: 'General Inquiry' }
     ], (opt) => {
       appendChatBubble('user', `<p>${opt.label}</p>`);

@@ -2,6 +2,7 @@
 ### Iniesta Automation Hub
 
 [![Live Demo](https://img.shields.io/badge/Live_Portfolio-Vercel-23e7f1?style=for-the-badge&logo=vercel&logoColor=black)](https://inioluwa-portfolio-self.vercel.app/)
+[![TikTok](https://img.shields.io/badge/TikTok-@iniesta.automation1-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@iniesta.automation1)
 [![Upwork](https://img.shields.io/badge/Upwork-Profile-14a800?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/~01050dd7c24906844a)
 
 A high-performance, dark-space web portfolio presenting 22 live AI video productions, prompt architectures, and creative workflows for **Inioluwa** (AI Video Specialist & Creative Technologist).
@@ -50,5 +51,6 @@ Then visit [https://inioluwa-portfolio-self.vercel.app](https://inioluwa-portfol
 ---
 
 ## 📬 Contact & Hire
+* **TikTok:** [@iniesta.automation1](https://www.tiktok.com/@iniesta.automation1)
 * **Upwork:** [Inioluwa on Upwork](https://www.upwork.com/freelancers/~01050dd7c24906844a)
 * **Phone:** `08106273746` / `08135384333`
