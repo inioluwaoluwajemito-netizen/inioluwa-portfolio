@@ -859,6 +859,84 @@
     </div>
   </div>
 
+  <!-- WhatsApp Chatbot Floating Widget -->
+  <div class="wa-chatbot-wrapper" id="waChatbotWrapper">
+    <!-- Chat Window -->
+    <div class="wa-chat-window" id="waChatWindow" role="region" aria-label="WhatsApp Chat Assistant">
+      <div class="wa-chat-header">
+        <div class="wa-header-avatar-group">
+          <div class="wa-avatar-ring">
+            <img src="assets/portrait_cutout.png" alt="Inioluwa" class="wa-avatar-img">
+            <span class="wa-online-dot" aria-hidden="true"></span>
+          </div>
+          <div class="wa-header-info">
+            <div class="wa-header-name">Inioluwa <span class="wa-verified-badge" title="Verified Specialist">✓</span></div>
+            <div class="wa-header-status">
+              <span class="wa-status-text">AI Video Specialist • Typically replies in 5m</span>
+            </div>
+          </div>
+        </div>
+        <button class="wa-close-btn" id="waCloseBtn" aria-label="Close WhatsApp chat">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Chat Messages Scroll Area -->
+      <div class="wa-chat-body" id="waChatBody">
+        <div class="wa-chat-timestamp">Today</div>
+
+        <!-- Greeting Bubble -->
+        <div class="wa-bubble bot">
+          <div class="wa-bubble-content">
+            <p>Hey there! 👋 Welcome to <strong>Iniesta Automation Hub</strong>.</p>
+            <p style="margin-top: 6px;">I'm Inioluwa's interactive AI assistant. Are you looking to direct a cinematic brand film, scale UGC video ads, or generate custom AI visuals?</p>
+          </div>
+          <span class="wa-bubble-time">Just now</span>
+        </div>
+
+        <!-- Interactive Quick Prompts -->
+        <div class="wa-quick-replies" id="waQuickReplies">
+          <button class="wa-chip" data-intent="brand">🎬 Brand Film / Commercial</button>
+          <button class="wa-chip" data-intent="ugc">⚡ UGC Hook &amp; Video Ads</button>
+          <button class="wa-chip" data-intent="avatar">🤖 AI Avatars &amp; Talking Heads</button>
+          <button class="wa-chip" data-intent="quote">💰 Get Custom Quote &amp; Timeline</button>
+          <button class="wa-chip" data-intent="direct">💬 Chat Directly on WhatsApp</button>
+        </div>
+      </div>
+
+      <!-- Chat Footer Input -->
+      <form class="wa-chat-footer" id="waChatFooter">
+        <div class="wa-input-wrapper">
+          <input 
+            type="text" 
+            id="waChatInput" 
+            class="wa-chat-input" 
+            placeholder="Type your project idea or question..." 
+            autocomplete="off"
+            aria-label="WhatsApp chat input"
+          />
+        </div>
+        <button type="submit" class="wa-send-btn" id="waSendBtn" aria-label="Send to WhatsApp">
+          <i data-lucide="send" class="w-4 h-4"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Floating Launcher Button -->
+    <button class="wa-launcher-btn" id="waLauncherBtn" aria-label="Open WhatsApp Chat" aria-expanded="false">
+      <!-- Unread Notification Badge -->
+      <span class="wa-unread-badge" id="waUnreadBadge">1</span>
+      
+      <!-- WhatsApp Brand Icon (SVG) -->
+      <svg class="wa-launcher-icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.02L7.55 18.84L4.44 19.66L5.27 16.63L5.07 16.31C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.03C9.36 7.03 9.08 7.09 8.84 7.35C8.61 7.61 7.94 8.23 7.94 9.5C7.94 10.77 8.86 12 9 12.18C9.13 12.35 10.8 14.93 13.36 16.03C15.5 16.95 15.93 16.76 16.39 16.72C16.85 16.68 17.89 16.11 18.11 15.5C18.33 14.88 18.33 14.36 18.26 14.25C18.2 14.13 18.03 14.07 17.77 13.94C17.51 13.82 16.24 13.19 16 13.11C15.77 13.02 15.6 12.98 15.43 13.23C15.26 13.49 14.77 14.07 14.62 14.25C14.47 14.42 14.33 14.44 14.07 14.31C13.81 14.19 12.98 13.91 12 13.04C11.24 12.36 10.72 11.53 10.57 11.27C10.43 11.01 10.55 10.87 10.68 10.74C10.8 10.62 10.94 10.43 11.08 10.28C11.22 10.13 11.27 10.02 11.36 9.84C11.44 9.67 11.4 9.52 11.34 9.4C11.28 9.27 10.78 8.04 10.57 7.54C10.37 7.06 10.16 7.12 10 7.12C9.86 7.11 9.69 7.03 9.53 7.03Z"/>
+      </svg>
+      <i data-lucide="x" class="wa-launcher-close-icon w-6 h-6"></i>
+
+      <span class="wa-launcher-tooltip">Chat on WhatsApp</span>
+    </button>
+  </div>
+
   <!-- Main Interactive Script -->
   <script src="js/main.js"></script>
 </body>

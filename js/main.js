@@ -820,4 +820,190 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // 10. Interactive WhatsApp Chatbot Widget (+2348135384333)
+  const waLauncherBtn = document.getElementById('waLauncherBtn');
+  const waChatWindow = document.getElementById('waChatWindow');
+  const waCloseBtn = document.getElementById('waCloseBtn');
+  const waChatBody = document.getElementById('waChatBody');
+  const waChatFooter = document.getElementById('waChatFooter');
+  const waChatInput = document.getElementById('waChatInput');
+  const waUnreadBadge = document.getElementById('waUnreadBadge');
+  const waQuickReplies = document.getElementById('waQuickReplies');
+
+  const WA_PHONE = '2348135384333'; // Direct Nigerian WhatsApp format for 08135384333
+
+  function toggleWaChat(forceOpen = null) {
+    if (!waChatWindow || !waLauncherBtn) return;
+    const shouldOpen = forceOpen !== null ? forceOpen : !waChatWindow.classList.contains('open');
+
+    if (shouldOpen) {
+      waChatWindow.classList.add('open');
+      waLauncherBtn.classList.add('open');
+      waLauncherBtn.setAttribute('aria-expanded', 'true');
+      if (waUnreadBadge) waUnreadBadge.style.display = 'none';
+      if (window.lucide) window.lucide.createIcons();
+      setTimeout(() => {
+        if (waChatInput) waChatInput.focus();
+      }, 250);
+    } else {
+      waChatWindow.classList.remove('open');
+      waLauncherBtn.classList.remove('open');
+      waLauncherBtn.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  if (waLauncherBtn) {
+    waLauncherBtn.addEventListener('click', () => toggleWaChat());
+  }
+
+  if (waCloseBtn) {
+    waCloseBtn.addEventListener('click', () => toggleWaChat(false));
+  }
+
+  // Auto trigger unread notification badge after 3.5 seconds
+  setTimeout(() => {
+    if (waUnreadBadge && (!waChatWindow || !waChatWindow.classList.contains('open'))) {
+      waUnreadBadge.style.display = 'flex';
+    }
+  }, 3500);
+
+  function createTimeStr() {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function appendChatBubble(sender, htmlContent, actionBtn = null) {
+    if (!waChatBody) return;
+    const bubble = document.createElement('div');
+    bubble.className = `wa-bubble ${sender}`;
+
+    let actionHtml = '';
+    if (actionBtn) {
+      actionHtml = `
+        <a href="${actionBtn.url}" target="_blank" rel="noopener noreferrer" class="wa-direct-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.02L7.55 18.84L4.44 19.66L5.27 16.63L5.07 16.31C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.03C9.36 7.03 9.08 7.09 8.84 7.35C8.61 7.61 7.94 8.23 7.94 9.5C7.94 10.77 8.86 12 9 12.18C9.13 12.35 10.8 14.93 13.36 16.03C15.5 16.95 15.93 16.76 16.39 16.72C16.85 16.68 17.89 16.11 18.11 15.5C18.33 14.88 18.33 14.36 18.26 14.25C18.2 14.13 18.03 14.07 17.77 13.94C17.51 13.82 16.24 13.19 16 13.11C15.77 13.02 15.6 12.98 15.43 13.23C15.26 13.49 14.77 14.07 14.62 14.25C14.47 14.42 14.33 14.44 14.07 14.31C13.81 14.19 12.98 13.91 12 13.04C11.24 12.36 10.72 11.53 10.57 11.27C10.43 11.01 10.55 10.87 10.68 10.74C10.8 10.62 10.94 10.43 11.08 10.28C11.22 10.13 11.27 10.02 11.36 9.84C11.44 9.67 11.4 9.52 11.34 9.4C11.28 9.27 10.78 8.04 10.57 7.54C10.37 7.06 10.16 7.12 10 7.12C9.86 7.11 9.69 7.03 9.53 7.03Z"/>
+          </svg>
+          <span>${actionBtn.text}</span>
+        </a>
+      `;
+    }
+
+    bubble.innerHTML = `
+      <div class="wa-bubble-content">
+        ${htmlContent}
+        ${actionHtml}
+      </div>
+      <span class="wa-bubble-time">${createTimeStr()}</span>
+    `;
+
+    waChatBody.appendChild(bubble);
+    waChatBody.scrollTop = waChatBody.scrollHeight;
+  }
+
+  function showBotTyping(callback, delay = 600) {
+    if (!waChatBody) return;
+    const typingBubble = document.createElement('div');
+    typingBubble.className = 'wa-bubble bot wa-typing-indicator';
+    typingBubble.innerHTML = `
+      <div class="wa-bubble-content">
+        <div class="wa-typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    `;
+    waChatBody.appendChild(typingBubble);
+    waChatBody.scrollTop = waChatBody.scrollHeight;
+
+    setTimeout(() => {
+      typingBubble.remove();
+      callback();
+    }, delay);
+  }
+
+  function openWhatsAppDirect(message) {
+    const encoded = encodeURIComponent(message);
+    const url = `https://wa.me/${WA_PHONE}?text=${encoded}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  // Quick Chips Interactions
+  if (waQuickReplies) {
+    const chips = waQuickReplies.querySelectorAll('.wa-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const intent = chip.getAttribute('data-intent');
+        const chipText = chip.textContent.trim();
+
+        appendChatBubble('user', `<p>${chipText}</p>`);
+
+        if (intent === 'direct') {
+          showBotTyping(() => {
+            const waMsg = `Hi Inioluwa, I found your portfolio and would like to chat directly about a video project.`;
+            appendChatBubble('bot', 
+              `<p>Opening direct chat with Inioluwa on WhatsApp now! Click the button below if your browser did not automatically open WhatsApp.</p>`,
+              { text: 'Chat with Inioluwa (08135384333)', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
+            );
+            openWhatsAppDirect(waMsg);
+          });
+        } else if (intent === 'brand') {
+          showBotTyping(() => {
+            const waMsg = `Hi Inioluwa, I'm interested in commissioning a Brand Film / Commercial video production.`;
+            appendChatBubble('bot',
+              `<p>Great choice! Inioluwa directs high-end cinematic commercials using Runway Gen-3, Midjourney, and post-production grading.</p><p style="margin-top: 6px;">Tap below to send this directly to Inioluwa on WhatsApp:</p>`,
+              { text: 'Start Brand Film Discussion ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
+            );
+          });
+        } else if (intent === 'ugc') {
+          showBotTyping(() => {
+            const waMsg = `Hi Inioluwa, I want to scale high-converting UGC Hook and Direct-Response Video Ads for our campaign.`;
+            appendChatBubble('bot',
+              `<p>We engineer retention-focused UGC hooks with dynamic kinetic captions and pricing callouts optimized for TikTok, Reels & Meta Ads.</p><p style="margin-top: 6px;">Let's discuss scripts & hooks on WhatsApp:</p>`,
+              { text: 'Discuss UGC Hook Ads ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
+            );
+          });
+        } else if (intent === 'avatar') {
+          showBotTyping(() => {
+            const waMsg = `Hi Inioluwa, I would like to create AI Avatars and Talking Head videos.`;
+            appendChatBubble('bot',
+              `<p>We deliver lifelike AI-generated presenters, multi-lingual spokespeople, and course presenters that scale video output rapidly.</p><p style="margin-top: 6px;">Connect with Inioluwa on WhatsApp:</p>`,
+              { text: 'Plan AI Avatar Video ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
+            );
+          });
+        } else if (intent === 'quote') {
+          showBotTyping(() => {
+            const waMsg = `Hi Inioluwa, I'd like to get a quote and timeline for an upcoming AI video production.`;
+            appendChatBubble('bot',
+              `<p>Standard turnarounds range between <strong>24 to 72 hours</strong>. Share your project goals and references directly on WhatsApp for an accurate estimate.</p>`,
+              { text: 'Get Instant WhatsApp Quote ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
+            );
+          });
+        }
+      });
+    });
+  }
+
+  // Chat Footer Form Send
+  if (waChatFooter && waChatInput) {
+    waChatFooter.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const userText = waChatInput.value.trim();
+      if (!userText) return;
+
+      appendChatBubble('user', `<p>${userText}</p>`);
+      waChatInput.value = '';
+
+      showBotTyping(() => {
+        const waMsg = `Hi Inioluwa, I have a project inquiry from your portfolio:\n\n"${userText}"\n\nLooking forward to hearing from you!`;
+        appendChatBubble('bot',
+          `<p>Got it! Transferring your message to Inioluwa's direct WhatsApp line (<strong>08135384333</strong>)...</p>`,
+          { text: 'Continue on WhatsApp ↗', url: `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}` }
+        );
+        setTimeout(() => {
+          openWhatsAppDirect(waMsg);
+        }, 400);
+      });
+    });
+  }
 });
