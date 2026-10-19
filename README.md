@@ -5,14 +5,14 @@
 [![TikTok](https://img.shields.io/badge/TikTok-@iniesta.automation1-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@iniesta.automation1)
 [![Upwork](https://img.shields.io/badge/Upwork-Profile-14a800?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/~01050dd7c24906844a)
 
-A high-performance, dark-space web portfolio presenting 22 live AI video productions, prompt architectures, and creative workflows for **Inioluwa** (AI Video Specialist & Creative Technologist).
+A high-performance, dark-space web portfolio presenting 23 live AI video productions, prompt architectures, and creative workflows for **Inioluwa** (AI Video Specialist & Creative Technologist).
 
 🌐 **Live Portfolio:** [https://inioluwa-portfolio-self.vercel.app](https://inioluwa-portfolio-self.vercel.app/)
 
 ---
 
 ## 🌟 Highlights & Features
-* **22 Live Video Productions:** High-definition video playback in custom interactive lightbox modals with prompt formulas and technical specs.
+* **23 Live Video Productions:** High-definition video playback in custom interactive lightbox modals with prompt formulas and technical specs.
 * **Keynote Showreel:** Autoplay hero video showreel card featuring presenter commercial direction.
 * **Category Filtering:** Real-time filtering across Brand Film, Motion Study, Post-Production, AI Campaign, Social Content, and Voice + Sound.
 * **Fluid Dark-Mode UI:** Custom-built glassmorphism design system using Cyber Cyan (`#23e7f1`), Electric Crimson (`#ff3857`), Deep Navy (`#06152d`), and Midnight Void (`#020916`).

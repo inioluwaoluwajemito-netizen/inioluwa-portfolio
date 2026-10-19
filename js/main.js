@@ -406,6 +406,24 @@ document.addEventListener('DOMContentLoaded', () => {
       tools: ['Runway Gen-3', 'Luma Dream Machine', 'After Effects', 'AI Sound Design'],
       promptFormula: 'cinematic commercial shot of Bugatti Chiron hypercar parked in ultra-luxury minimalist showroom, glossy obsidian marble reflections, rim lighting, 8k raytracing, camera push-in --ar 16:9',
       pills: ['Automotive Commercial', 'Hypercar Cinema', 'Luxury Brand Film']
+    },
+    '23': {
+      id: '23',
+      title: 'Shiro / Haute Gastronomy & Culinary Artistry',
+      category: '23 / FINE DINING & CULINARY BRAND FILM',
+      tag: 'brand',
+      image: 'assets/projects/thumb_d6.png',
+      video: 'assets/videos/video_d6.mp4',
+      description: 'Atmospheric luxury culinary commercial showcasing master omakase chefs, delicate glazing sauce pour, and warm celebratory dining.',
+      specs: {
+        resolution: '854x480 High-Definition',
+        fps: '30 fps Cinematic',
+        ratio: '16:9 Landscape',
+        audio: 'Warm Ambience, Kitchen Foley & Orchestral Dining Score'
+      },
+      tools: ['Runway Gen-3 Alpha', 'Midjourney v6.1', 'DaVinci Resolve Studio', 'Kling AI'],
+      promptFormula: 'cinematic luxury restaurant commercial, master Japanese omakase chef precision slicing and pouring rich glaze over seared culinary dish, shallow depth of field, warm ambient wood interior lighting, elegant dining guests raising glasses, slow pan 4k macro --ar 16:9',
+      pills: ['Culinary Cinema', 'Macro Gastronomy', 'Luxury Brand Spot']
     }
   };
 
