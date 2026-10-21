@@ -870,16 +870,224 @@ document.addEventListener('DOMContentLoaded', () => {
   const waUnreadBadge = document.getElementById('waUnreadBadge');
 
   const WA_PHONE = '2348135384333'; // Direct Nigerian WhatsApp format for 08135384333
+  const PHONE_LINE_1 = '08106273746';
+  const PHONE_LINE_2 = '08135384333';
 
   // Conversational state to qualify client before WhatsApp hand-off
   let chatState = {
     step: 0, // 0: Service, 1: Format/Length, 2: Timeline, 3: Client Details / Notes, 4: Handover
+    inBriefMode: false,
     service: '',
     format: '',
     timeline: '',
     notes: '',
     clientName: ''
   };
+
+  // Trained Knowledge Base for Inioluwa (AI Video Specialist & Creative Technologist)
+  const BOT_KNOWLEDGE = {
+    pricing: {
+      title: "💰 Pricing & Investment Guide",
+      html: `
+        <p><strong>Transparent, Efficiency-Led Investment:</strong></p>
+        <p style="margin-top: 6px;">Because we use cutting-edge generative AI (Runway Gen-3, Kling 1.5, Midjourney, ComfyUI), our production budgets represent <strong>up to 70% cost savings</strong> compared to traditional $15,000–$50,000+ camera crews.</p>
+        <ul style="margin: 8px 0 8px 18px; line-height: 1.5; font-size: 0.85rem; color: #bed2ea;">
+          <li><strong>⚡ High-Retention Social Hooks / Ads (9:16):</strong> Rapid 24–48h turnaround for Meta & TikTok ads.</li>
+          <li><strong>🎬 Cinematic Brand Films & Commercials:</strong> Custom multi-shot narrative spots with sound design.</li>
+          <li><strong>🤖 Multilingual AI Avatars / Training:</strong> Photorealistic spokespersons without studio overhead.</li>
+          <li><strong>📦 Monthly Content Retainers:</strong> Volume packages for high-growth brands and creators.</li>
+        </ul>
+        <p style="font-size: 0.82rem; color: #9eb8d5;">Every project includes <strong>100% full commercial rights</strong> and <strong>2 rounds of revisions</strong>. We also support Upwork Escrow milestone contracts.</p>
+      `,
+      chips: [
+        { label: '📝 Start Project Brief & Quote', action: 'START_BRIEF' },
+        { label: '💬 Get Custom Quote on WhatsApp', action: 'DIRECT_WA' },
+        { label: '🛠️ What AI Tools Do You Use?', action: 'QUERY_TOOLS' }
+      ]
+    },
+
+    tools: {
+      title: "🛠️ AI Video Production Stack",
+      html: `
+        <p><strong>Production-Grade AI & Post-Production Suite:</strong></p>
+        <p style="margin-top: 6px;">We don't rely on generic consumer filters. We engineer consistent, photorealistic visual pipelines with:</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 8px 0; font-size: 0.82rem;">
+          <div style="background: rgba(255,255,255,0.04); padding: 6px 8px; border-radius: 6px; border-left: 2px solid var(--cyan, #23e7f1);"><strong>Runway Gen-3</strong><br><span style="color:#9eb8d5;">Cinematic motion synthesis</span></div>
+          <div style="background: rgba(255,255,255,0.04); padding: 6px 8px; border-radius: 6px; border-left: 2px solid var(--red, #ff3857);"><strong>Kling AI 1.5 & Luma</strong><br><span style="color:#9eb8d5;">Dynamic physics & camera</span></div>
+          <div style="background: rgba(255,255,255,0.04); padding: 6px 8px; border-radius: 6px; border-left: 2px solid #10b981;"><strong>Midjourney & Flux</strong><br><span style="color:#9eb8d5;">Master visual concepts</span></div>
+          <div style="background: rgba(255,255,255,0.04); padding: 6px 8px; border-radius: 6px; border-left: 2px solid #f59e0b;"><strong>ElevenLabs Voice</strong><br><span style="color:#9eb8d5;">Lifelike voice cloning</span></div>
+          <div style="background: rgba(255,255,255,0.04); padding: 6px 8px; border-radius: 6px; border-left: 2px solid #8b5cf6;"><strong>DaVinci Resolve</strong><br><span style="color:#9eb8d5;">Color grading & pacing</span></div>
+          <div style="background: rgba(255,255,255,0.04); padding: 6px 8px; border-radius: 6px; border-left: 2px solid var(--cyan, #23e7f1);"><strong>Topaz Video AI</strong><br><span style="color:#9eb8d5;">4K UHD upscaling</span></div>
+        </div>
+        <p style="font-size: 0.82rem; color: #9eb8d5;">Character faces and clothing are locked using reference LoRA weights & ComfyUI to guarantee shot-to-shot consistency.</p>
+      `,
+      chips: [
+        { label: '🌟 See Projects Created With These', action: 'QUERY_PORTFOLIO' },
+        { label: '⏱️ What Are Delivery Times?', action: 'QUERY_TIMELINE' },
+        { label: '📝 Build a Project Brief', action: 'START_BRIEF' }
+      ]
+    },
+
+    timeline: {
+      title: "⏱️ Delivery & Turnaround Schedules",
+      html: `
+        <p><strong>Fast, Reliable Production Cycles:</strong></p>
+        <ul style="margin: 8px 0 8px 18px; line-height: 1.5; font-size: 0.85rem; color: #bed2ea;">
+          <li><strong>⚡ Fast Track (24–48 Hours):</strong> Video edits, short-form TikTok/Reels hooks, and rapid concept drafts.</li>
+          <li><strong>🚀 Standard Sprint (3–5 Business Days):</strong> Complete multi-shot commercial brand films with voiceover and 4K master.</li>
+          <li><strong>🗓️ Multi-Asset Campaigns (1–2 Weeks):</strong> Full brand libraries (10–20 variations in 16:9, 9:16, and 1:1).</li>
+        </ul>
+        <p style="font-size: 0.82rem; color: #9eb8d5;">Need a same-week launch? Mention your deadline in your WhatsApp brief and we'll prioritize your queue.</p>
+      `,
+      chips: [
+        { label: '⚡ Fast Track Brief (24-48h)', action: 'TIMELINE_FAST' },
+        { label: '🚀 Standard Brief (3-5 Days)', action: 'TIMELINE_STANDARD' },
+        { label: '💬 Message on WhatsApp Directly', action: 'DIRECT_WA' }
+      ]
+    },
+
+    services: {
+      title: "🎬 9 Core Creative Capabilities",
+      html: `
+        <p>Inioluwa delivers end-to-end AI video production across <strong>9 core disciplines</strong>:</p>
+        <ol style="margin: 8px 0 8px 18px; line-height: 1.5; font-size: 0.85rem; color: #bed2ea;">
+          <li><strong>AI Video Generation:</strong> Commercial brand films & surreal set pieces.</li>
+          <li><strong>Video Editing & Post:</strong> High-tempo retention pacing & sound design.</li>
+          <li><strong>Prompt Architecture:</strong> Repeatable prompt formulas & LoRA tuning.</li>
+          <li><strong>AI Avatars:</strong> Multilingual digital presenters & spokespeople.</li>
+          <li><strong>UGC Hook Ads:</strong> Direct-response video ads for TikTok & Meta.</li>
+          <li><strong>Motion Graphics & VFX:</strong> Kinetic typography & 3D HUD elements.</li>
+          <li><strong>Audio Engineering:</strong> ElevenLabs voice synthesis & film scoring.</li>
+          <li><strong>4K Video Upscaling:</strong> Topaz 4K enhancement & detail restoration.</li>
+          <li><strong>Visual Storyboarding:</strong> Midjourney & Flux conceptual art.</li>
+        </ol>
+      `,
+      chips: [
+        { label: '📝 Start an Intake Brief', action: 'START_BRIEF' },
+        { label: '💰 How Much Does It Cost?', action: 'QUERY_PRICING' },
+        { label: '💬 Chat With Inioluwa on WhatsApp', action: 'DIRECT_WA' }
+      ]
+    },
+
+    portfolio: {
+      title: "🌟 23 Live Video Productions",
+      html: `
+        <p>Explore 23 live AI video productions featured in our portfolio:</p>
+        <ul style="margin: 8px 0 8px 18px; line-height: 1.5; font-size: 0.85rem; color: #bed2ea;">
+          <li><strong>Project 23 (Shiro Omakase):</strong> Haute culinary brand film with macro food cinematography.</li>
+          <li><strong>Project 22 (Apex Cinema Bugatti):</strong> Hypercar commercial with showroom camera sweeps.</li>
+          <li><strong>Project 21 (UGC Hook):</strong> High-conversion direct response reel with kinetic captions.</li>
+          <li><strong>Project 20 (Luxury Real Estate):</strong> Architectural flythrough & interior lighting.</li>
+        </ul>
+        <p style="font-size: 0.82rem; color: #9eb8d5;">Every project includes full prompt formulas and technical specs.</p>
+      `,
+      chips: [
+        { label: '🌐 Open Full 23-Project Portfolio', action: 'NAV_PORTFOLIO' },
+        { label: '📱 View TikTok (@iniesta.automation1)', action: 'NAV_TIKTOK' },
+        { label: '📝 Build a Similar Video Brief', action: 'START_BRIEF' }
+      ]
+    },
+
+    revisions: {
+      title: "🔄 Revisions & Quality Assurance",
+      html: `
+        <p><strong>Your Complete Satisfaction Is Guaranteed:</strong></p>
+        <p style="margin-top: 6px;">Every production includes <strong>two comprehensive revision rounds</strong>:</p>
+        <ul style="margin: 8px 0 8px 18px; line-height: 1.5; font-size: 0.85rem; color: #bed2ea;">
+          <li><strong>Round 1 (Rough Cut):</strong> Review scene direction, character actions, pacing, and voiceover script.</li>
+          <li><strong>Round 2 (Fine Polish):</strong> Color grading adjustments, audio balance, title tweaks, and master 4K delivery.</li>
+        </ul>
+        <p style="font-size: 0.82rem; color: #9eb8d5;">Prompt-level iterations happen in hours instead of costly reshoots.</p>
+      `,
+      chips: [
+        { label: '📝 Build a Project Brief', action: 'START_BRIEF' },
+        { label: '💬 Discuss on WhatsApp', action: 'DIRECT_WA' }
+      ]
+    },
+
+    contact: {
+      title: "📬 Contact & Studio Channels",
+      html: `
+        <p><strong>Connect Directly With Inioluwa:</strong></p>
+        <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.85rem; color: #bed2ea;">
+          <li>💬 <strong>WhatsApp:</strong> <a href="https://wa.me/2348135384333" target="_blank" style="color:var(--cyan,#23e7f1); text-decoration:underline;">08135384333 (+2348135384333)</a></li>
+          <li>📞 <strong>Direct Phone 1:</strong> <a href="tel:08106273746" style="color:var(--cyan,#23e7f1); text-decoration:underline;">08106273746</a></li>
+          <li>📧 <strong>Direct Email:</strong> <a href="mailto:iniesta.automation@gmail.com" style="color:var(--cyan,#23e7f1); text-decoration:underline;">iniesta.automation@gmail.com</a></li>
+          <li>📱 <strong>TikTok:</strong> <a href="https://www.tiktok.com/@iniesta.automation1" target="_blank" style="color:var(--cyan,#23e7f1); text-decoration:underline;">@iniesta.automation1</a></li>
+          <li>💼 <strong>Upwork Profile:</strong> <a href="https://www.upwork.com/freelancers/~01050dd7c24906844a" target="_blank" style="color:var(--cyan,#23e7f1); text-decoration:underline;">Upwork Escrow Verified</a></li>
+        </ul>
+        <p style="font-size: 0.82rem; color: #9eb8d5;">Studio operations are based in Nigeria, serving international clients across North America, Europe, the Middle East, and Africa.</p>
+      `,
+      chips: [
+        { label: '💬 Open WhatsApp Chat (08135384333)', action: 'DIRECT_WA' },
+        { label: '📝 Build Your Brief First', action: 'START_BRIEF' }
+      ]
+    },
+
+    process: {
+      title: "🗺️ 6-Stage Production Workflow",
+      html: `
+        <p><strong>From Raw Idea to 4K Master in 6 Steps:</strong></p>
+        <ol style="margin: 8px 0 8px 18px; line-height: 1.5; font-size: 0.85rem; color: #bed2ea;">
+          <li><strong>Discovery & Creative Brief:</strong> We align on script, target audience, and visual tone.</li>
+          <li><strong>Concept Art & Storyboarding:</strong> Midjourney/Flux visual seeds and character styling.</li>
+          <li><strong>Generative Video Synthesis:</strong> Runway Gen-3 & Kling camera choreography.</li>
+          <li><strong>Voice Synthesis & Audio Scoring:</strong> ElevenLabs narration and spatial sound effects.</li>
+          <li><strong>Editorial & Color Grading:</strong> DaVinci Resolve timing, transitions, and text animations.</li>
+          <li><strong>Topaz 4K UHD Master Delivery:</strong> Formatted for your exact platforms.</li>
+        </ol>
+      `,
+      chips: [
+        { label: '📝 Start Step 1: Project Brief', action: 'START_BRIEF' },
+        { label: '💰 What About Pricing?', action: 'QUERY_PRICING' },
+        { label: '💬 Chat on WhatsApp', action: 'DIRECT_WA' }
+      ]
+    }
+  };
+
+  // Smart Intent Detection Engine
+  function detectQueryIntent(text) {
+    const q = text.toLowerCase().trim();
+
+    if (/\b(price|pricing|cost|how much|rate|rates|quote|quotation|budget|cheap|expensive|fee|fees|dollars|naira|\$|₦)\b/.test(q)) {
+      return 'pricing';
+    }
+    if (/\b(tool|tools|software|stack|runway|midjourney|kling|luma|sora|elevenlabs|topaz|comfyui|flux|davinci|premiere)\b/.test(q)) {
+      return 'tools';
+    }
+    if (/\b(timeline|time|how long|delivery|turnaround|deadline|fast|rush|urgent|hours|days|weeks)\b/.test(q)) {
+      return 'timeline';
+    }
+    if (/\b(service|services|capabilities|what do you do|what can you do|offer|offers|package|packages)\b/.test(q)) {
+      return 'services';
+    }
+    if (/\b(portfolio|project|projects|example|examples|sample|samples|work|video|videos|bugatti|shiro|real estate|food)\b/.test(q)) {
+      return 'portfolio';
+    }
+    if (/\b(revision|revisions|changes|edit|corrections|modify|redo|guarantee)\b/.test(q)) {
+      return 'revisions';
+    }
+    if (/\b(contact|phone|number|call|email|reach|whatsapp|location|where are you|nigeria|lagos|talk)\b/.test(q)) {
+      return 'contact';
+    }
+    if (/\b(process|workflow|steps|how does it work|how it works|how do we start)\b/.test(q)) {
+      return 'process';
+    }
+    if (/\b(tiktok|tik tok|social|instagram|reels)\b/.test(q)) {
+      return 'portfolio';
+    }
+    if (/\b(upwork|contract|escrow|freelancer)\b/.test(q)) {
+      return 'pricing';
+    }
+    if (/\b(hi|hello|hey|good morning|good afternoon|good evening|greetings)\b/.test(q)) {
+      return 'greeting';
+    }
+    if (/\b(start|brief|order|book|hire|create|make a video|new video)\b/.test(q)) {
+      return 'start_brief';
+    }
+
+    return null;
+  }
 
   function toggleWaChat(forceOpen = null) {
     if (!waChatWindow || !waLauncherBtn) return;
@@ -950,7 +1158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     waChatBody.scrollTop = waChatBody.scrollHeight;
   }
 
-  function showBotTyping(callback, delay = 550) {
+  function showBotTyping(callback, delay = 450) {
     if (!waChatBody) return;
     const typingBubble = document.createElement('div');
     typingBubble.className = 'wa-bubble bot wa-typing-indicator';
@@ -1009,8 +1217,57 @@ document.addEventListener('DOMContentLoaded', () => {
     return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
   }
 
+  function handleActionChip(actionCode) {
+    if (actionCode === 'START_BRIEF') {
+      startBriefFlow();
+    } else if (actionCode === 'DIRECT_WA') {
+      window.open(generateWhatsAppUrl(chatState), '_blank', 'noopener,noreferrer');
+    } else if (actionCode === 'QUERY_PRICING') {
+      respondWithKnowledge('pricing');
+    } else if (actionCode === 'QUERY_TOOLS') {
+      respondWithKnowledge('tools');
+    } else if (actionCode === 'QUERY_TIMELINE') {
+      respondWithKnowledge('timeline');
+    } else if (actionCode === 'QUERY_PORTFOLIO') {
+      respondWithKnowledge('portfolio');
+    } else if (actionCode === 'QUERY_SERVICES') {
+      respondWithKnowledge('services');
+    } else if (actionCode === 'NAV_PORTFOLIO') {
+      window.location.href = 'portfolio.html';
+    } else if (actionCode === 'NAV_TIKTOK') {
+      window.open('https://www.tiktok.com/@iniesta.automation1', '_blank', 'noopener,noreferrer');
+    } else if (actionCode === 'TIMELINE_FAST') {
+      chatState.service = chatState.service || 'AI Video Production';
+      chatState.format = chatState.format || '15-30s Social Cut (9:16)';
+      askClientDetails('Fast Track (24–48 Hours)');
+    } else if (actionCode === 'TIMELINE_STANDARD') {
+      chatState.service = chatState.service || 'AI Commercial Brand Film';
+      chatState.format = chatState.format || '60s Narrative (16:9)';
+      askClientDetails('Standard (3–5 Days)');
+    }
+  }
+
+  function respondWithKnowledge(topicKey, prependNote = '') {
+    const item = BOT_KNOWLEDGE[topicKey];
+    if (!item) return;
+
+    showBotTyping(() => {
+      appendChatBubble('bot', `
+        ${prependNote ? `<p style="margin-bottom:6px;">${prependNote}</p>` : ''}
+        <div style="margin-bottom:4px; font-weight:700; color:var(--cyan,#23e7f1); font-size:0.9rem;">${item.title}</div>
+        ${item.html}
+      `);
+
+      renderChips(item.chips, (opt) => {
+        appendChatBubble('user', `<p>${opt.label}</p>`);
+        handleActionChip(opt.action);
+      });
+    }, 400);
+  }
+
   function showFinalHandover() {
     chatState.step = 4;
+    chatState.inBriefMode = false;
     showBotTyping(() => {
       const waUrl = generateWhatsAppUrl(chatState);
 
@@ -1049,12 +1306,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="wa-handover-actions">
           <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="wa-handover-btn">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.02L7.55 18.84L4.44 19.66L5.27 16.63L5.07 16.31C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.03C9.36 7.03 9.08 7.09 8.84 7.35C8.61 7.61 7.94 8.23 7.94 9.5C7.94 10.77 8.86 12 9 12.18C9.13 12.35 10.8 14.93 13.36 16.03C15.5 16.95 15.93 16.76 16.39 16.72C16.85 16.68 17.89 16.11 18.11 15.5C18.33 14.88 18.33 14.36 18.26 14.25C18.2 14.13 18.03 14.07 17.77 13.94C17.51 13.82 16.24 13.19 16 13.11C15.77 13.02 15.6 12.98 15.43 13.23C15.26 13.49 14.77 14.07 14.62 14.25C14.47 14.42 14.33 14.44 14.07 14.31C13.81 14.19 12.98 13.91 12 13.04C11.24 12.36 10.72 11.53 10.57 11.27C10.43 11.01 10.55 10.87 10.68 10.74C10.8 10.62 10.94 10.43 11.08 10.28C11.22 10.13 11.27 10.02 11.36 9.84C11.44 9.67 11.4 9.52 11.34 9.4C11.28 9.27 10.78 8.04 10.57 7.54C10.37 7.06 10.16 7.12 10.78 8.04 10.57 7.54C10.37 7.06 10.16 7.12 10 7.12C9.86 7.11 9.69 7.03 9.53 7.03Z"/>
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.02L7.55 18.84L4.44 19.66L5.27 16.63L5.07 16.31C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.03C9.36 7.03 9.08 7.09 8.84 7.35C8.61 7.61 7.94 8.23 7.94 9.5C7.94 10.77 8.86 12 9 12.18C9.13 12.35 10.8 14.93 13.36 16.03C15.5 16.95 15.93 16.76 16.39 16.72C16.85 16.68 17.89 16.11 18.11 15.5C18.33 14.88 18.33 14.36 18.26 14.25C18.2 14.13 18.03 14.07 17.77 13.94C17.51 13.82 16.24 13.19 16 13.11C15.77 13.02 15.6 12.98 15.43 13.23C15.26 13.49 14.77 14.07 14.62 14.25C14.47 14.42 14.33 14.44 14.07 14.31C13.81 14.19 12.98 13.91 12 13.04C11.24 12.36 10.72 11.53 10.57 11.27C10.43 11.01 10.55 10.87 10.68 10.74C10.8 10.62 10.94 10.43 11.08 10.28C11.22 10.13 11.27 10.02 11.36 9.84C11.44 9.67 11.4 9.52 11.34 9.4C11.28 9.27 10.78 8.04 10.57 7.54C10.37 7.06 10.16 7.12 10 7.12C9.86 7.11 9.69 7.03 9.53 7.03Z"/>
             </svg>
             <span>Send Brief to Inioluwa on WhatsApp ↗</span>
           </a>
           <button type="button" class="wa-secondary-btn" id="waRestartBtn">
-            <span>🔄 Edit Brief / Restart Intake</span>
+            <span>🔄 Edit Brief / Ask Questions</span>
           </button>
         </div>
       `;
@@ -1068,13 +1325,14 @@ document.addEventListener('DOMContentLoaded', () => {
           startConversation();
         });
       }
-    }, 700);
+    }, 550);
   }
 
   // Step 3: Timeline chosen -> Ask Client details / brief notes
   function askClientDetails(timelineChosen) {
     chatState.timeline = timelineChosen;
     chatState.step = 3;
+    chatState.inBriefMode = true;
 
     showBotTyping(() => {
       appendChatBubble('bot',
@@ -1089,8 +1347,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       renderChips([
-        { label: '⏩ Skip notes & finish brief', value: 'SKIP' },
-        { label: '💬 Send brief directly to WhatsApp', value: 'DIRECT' }
+        { label: '⏩ Skip notes & finish brief', action: 'FINISH_SKIP' },
+        { label: '💬 Send brief directly to WhatsApp', action: 'DIRECT_WA' }
       ], (opt) => {
         appendChatBubble('user', `<p>${opt.label}</p>`);
         showFinalHandover();
@@ -1102,6 +1360,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function askTimeline(formatChosen) {
     chatState.format = formatChosen;
     chatState.step = 2;
+    chatState.inBriefMode = true;
 
     showBotTyping(() => {
       appendChatBubble('bot', 
@@ -1127,30 +1386,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Step 1: Service chosen -> Ask format
   function askFormat(serviceChosen) {
-    if (serviceChosen === 'TIKTOK') {
-      showBotTyping(() => {
-        appendChatBubble('bot',
-          `<p>Check out our latest AI video experiments, commercial reels, and production breakdowns on TikTok:</p>` +
-          `<p style="margin-top: 8px;"><a href="https://www.tiktok.com/@iniesta.automation1" target="_blank" rel="noopener noreferrer" class="wa-handover-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; padding: 0.6rem 1rem; font-size: 0.82rem;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.96-4.49V8.69a8.18 8.18 0 0 0 4.81 1.55v-3.5a4.89 4.89 0 0 1-1-.05z"/></svg> Open @iniesta.automation1 on TikTok ↗</a></p>` +
-          `<p style="margin-top: 10px;">What kind of video production would you like to build for your brand?</p>`
-        );
-
-        renderChips([
-          { label: '🎬 Brand Film / Commercial', value: 'Brand Film / Commercial' },
-          { label: '⚡ UGC Hook & Video Ads', value: 'UGC Hook & Video Ads' },
-          { label: '🤖 AI Avatars & Talking Heads', value: 'AI Avatars & Talking Heads' },
-          { label: '🎨 Motion Graphics & VFX', value: 'Motion Graphics & VFX' },
-          { label: '💬 General Inquiry / Direct Quote', value: 'General Inquiry' }
-        ], (opt) => {
-          appendChatBubble('user', `<p>${opt.label}</p>`);
-          askFormat(opt.value);
-        });
-      });
-      return;
-    }
-
     chatState.service = serviceChosen;
     chatState.step = 1;
+    chatState.inBriefMode = true;
 
     let insight = 'Brand films deliver cinematic authority with Runway Gen-3 & Midjourney visual direction.';
     if (serviceChosen.includes('UGC')) insight = 'UGC hooks use kinetic typography and relatable framing to maximize ad retention on Meta & TikTok.';
@@ -1175,7 +1413,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Step 0: Initial Greeting
+  function startBriefFlow() {
+    chatState.inBriefMode = true;
+    chatState.step = 0;
+
+    showBotTyping(() => {
+      appendChatBubble('bot',
+        `<p>Let's configure your production brief in 3 quick taps:</p>` +
+        `<p style="margin-top: 6px;"><strong>Step 1:</strong> What type of production are you looking to create?</p>`
+      );
+
+      renderChips([
+        { label: '🎬 Brand Film / Commercial', value: 'Brand Film / Commercial' },
+        { label: '⚡ UGC Hook & Video Ads', value: 'UGC Hook & Video Ads' },
+        { label: '🤖 AI Avatars & Talking Heads', value: 'AI Avatars & Talking Heads' },
+        { label: '🎨 Motion Graphics & VFX', value: 'Motion Graphics & VFX' },
+        { label: '💬 General Inquiry / Direct Quote', value: 'General Inquiry' }
+      ], (opt) => {
+        appendChatBubble('user', `<p>${opt.label}</p>`);
+        askFormat(opt.value);
+      });
+    });
+  }
+
+  // Step 0: Initial Greeting with Rich Hub
   function startConversation() {
     if (!waChatBody) return;
     waChatBody.innerHTML = `
@@ -1183,33 +1444,33 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="wa-bubble bot">
         <div class="wa-bubble-content">
           <p>Hey there! 👋 Welcome to <strong>Iniesta Automation Hub</strong>.</p>
-          <p style="margin-top: 6px;">I'm Inioluwa's interactive AI assistant. I'll help you structure your project scope and quote before connecting with Inioluwa on WhatsApp.</p>
-          <p style="margin-top: 6px;">What type of video production are you looking to create?</p>
+          <p style="margin-top: 6px;">I'm Inioluwa's interactive AI assistant. You can ask me anything about our <strong>pricing, turnaround times, AI tools (Runway/Kling), or 23 portfolio projects</strong> — or start an instant project brief for WhatsApp!</p>
+          <p style="margin-top: 6px; font-weight: 600; color: var(--cyan, #23e7f1);">How can I assist you right now?</p>
         </div>
         <span class="wa-bubble-time">${createTimeStr()}</span>
       </div>
     `;
 
-    chatState = { step: 0, service: '', format: '', timeline: '', notes: '', clientName: '' };
-    if (waChatInput) waChatInput.placeholder = 'Type your message or project brief...';
+    chatState = { step: 0, inBriefMode: false, service: '', format: '', timeline: '', notes: '', clientName: '' };
+    if (waChatInput) waChatInput.placeholder = 'Ask a question or type your project brief...';
 
     renderChips([
-      { label: '🎬 Brand Film / Commercial', value: 'Brand Film / Commercial' },
-      { label: '⚡ UGC Hook & Video Ads', value: 'UGC Hook & Video Ads' },
-      { label: '🤖 AI Avatars & Talking Heads', value: 'AI Avatars & Talking Heads' },
-      { label: '🎨 Motion Graphics & VFX', value: 'Motion Graphics & VFX' },
-      { label: '📱 TikTok (@iniesta.automation1)', value: 'TIKTOK' },
-      { label: '💬 General Inquiry / Direct Quote', value: 'General Inquiry' }
+      { label: '📝 Start Project Brief & Quote', action: 'START_BRIEF' },
+      { label: '💰 Pricing & Investment Guide', action: 'QUERY_PRICING' },
+      { label: '🛠️ AI Tools (Runway/Kling/Sora)', action: 'QUERY_TOOLS' },
+      { label: '⏱️ Delivery & Turnaround Times', action: 'QUERY_TIMELINE' },
+      { label: '🌟 23 Live Portfolio Projects', action: 'QUERY_PORTFOLIO' },
+      { label: '💬 Direct WhatsApp to Inioluwa', action: 'DIRECT_WA' }
     ], (opt) => {
       appendChatBubble('user', `<p>${opt.label}</p>`);
-      askFormat(opt.value);
+      handleActionChip(opt.action);
     });
   }
 
   // Initialize initial conversation state
   startConversation();
 
-  // Chat Footer Form Send (Freeform text handling across conversation steps)
+  // Chat Footer Form Send (Freeform text handling with intent detection)
   if (waChatFooter && waChatInput) {
     waChatFooter.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -1219,47 +1480,77 @@ document.addEventListener('DOMContentLoaded', () => {
       appendChatBubble('user', `<p>${userText}</p>`);
       waChatInput.value = '';
 
-      if (chatState.step === 0) {
-        askFormat(userText);
-      } else if (chatState.step === 1) {
-        askTimeline(userText);
-      } else if (chatState.step === 2) {
-        askClientDetails(userText);
-      } else {
-        chatState.notes = userText;
-        chatState.clientName = userText;
-        showFinalHandover();
-      }
-    });
-  }
+      // Check if user is asking a question using our NLP intent detector
+      const detectedIntent = detectQueryIntent(userText);
 
-  // 11. Mobile Drawer Navigation Toggle
-  const mobileToggle = document.getElementById('mobileMenuToggle');
-  const mobileDrawer = document.getElementById('mobileDrawer');
-  if (mobileToggle && mobileDrawer) {
-    mobileToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = mobileDrawer.classList.toggle('open');
-      mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      const icon = mobileToggle.querySelector('i');
-      if (icon) {
-        icon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
-        if (window.lucide) window.lucide.createIcons();
+      if (detectedIntent === 'greeting') {
+        showBotTyping(() => {
+          appendChatBubble('bot', `
+            <p>Hello! Great to meet you. 👋</p>
+            <p style="margin-top:6px;">I'm here to assist with any questions about Inioluwa's AI video productions, pricing, or getting your project booked.</p>
+          `);
+          renderChips([
+            { label: '📝 Start Project Brief', action: 'START_BRIEF' },
+            { label: '💰 Check Pricing', action: 'QUERY_PRICING' },
+            { label: '🛠️ Tools & Models Used', action: 'QUERY_TOOLS' },
+            { label: '💬 Chat on WhatsApp', action: 'DIRECT_WA' }
+          ], (opt) => {
+            appendChatBubble('user', `<p>${opt.label}</p>`);
+            handleActionChip(opt.action);
+          });
+        });
+        return;
       }
-    });
 
-    document.addEventListener('click', (e) => {
-      if (mobileDrawer.classList.contains('open') && !mobileDrawer.contains(e.target) && !mobileToggle.contains(e.target)) {
-        mobileDrawer.classList.remove('open');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        const icon = mobileToggle.querySelector('i');
-        if (icon) {
-          icon.setAttribute('data-lucide', 'menu');
-          if (window.lucide) window.lucide.createIcons();
+      if (detectedIntent === 'start_brief') {
+        startBriefFlow();
+        return;
+      }
+
+      // If a knowledge intent was detected, answer it immediately!
+      if (detectedIntent && BOT_KNOWLEDGE[detectedIntent]) {
+        respondWithKnowledge(detectedIntent);
+        return;
+      }
+
+      // If user is currently inside the step-by-step brief intake:
+      if (chatState.inBriefMode) {
+        if (chatState.step === 0) {
+          askFormat(userText);
+        } else if (chatState.step === 1) {
+          askTimeline(userText);
+        } else if (chatState.step === 2) {
+          askClientDetails(userText);
+        } else {
+          chatState.notes = userText;
+          chatState.clientName = userText;
+          showFinalHandover();
         }
+        return;
       }
+
+      // Default smart conversational fallback:
+      showBotTyping(() => {
+        appendChatBubble('bot', `
+          <p>Thanks for your message: <em>"${userText}"</em>.</p>
+          <p style="margin-top: 6px;">I can connect you directly with <strong>Inioluwa on WhatsApp (+2348135384333)</strong> with your message attached, or we can configure a tailored production brief right here:</p>
+        `);
+
+        chatState.notes = userText;
+
+        renderChips([
+          { label: '💬 Send this to Inioluwa on WhatsApp', action: 'DIRECT_WA' },
+          { label: '📝 Configure a Full Project Brief', action: 'START_BRIEF' },
+          { label: '💰 View Pricing & Packages', action: 'QUERY_PRICING' },
+          { label: '🛠️ View AI Tools & Stack', action: 'QUERY_TOOLS' }
+        ], (opt) => {
+          appendChatBubble('user', `<p>${opt.label}</p>`);
+          handleActionChip(opt.action);
+        });
+      });
     });
   }
+
 
   // 12. Interactive FAQ Accordion Functionality
   const faqQuestions = document.querySelectorAll('.faq-question');
