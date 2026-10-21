@@ -591,13 +591,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inquire Button link
     modalInquireBtn.onclick = () => {
       closeProjectModal();
-      const projectSelect = document.getElementById('inquiryProjectType');
-      if (projectSelect) {
-        projectSelect.value = data.title;
-      }
-      const contactSection = document.getElementById('contact');
+      const currentTitle = data.title;
+      const contactSection = document.getElementById('projectInquiryForm');
       if (contactSection) {
+        const projectSelect = document.getElementById('inquiryProjectType');
+        if (projectSelect) {
+          projectSelect.value = data.title;
+        }
         contactSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.href = `contact.html?project=${encodeURIComponent(currentTitle)}`;
       }
     };
 
@@ -1229,4 +1232,93 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // 11. Mobile Drawer Navigation Toggle
+  const mobileToggle = document.getElementById('mobileMenuToggle');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  if (mobileToggle && mobileDrawer) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileDrawer.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      const icon = mobileToggle.querySelector('i');
+      if (icon) {
+        icon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
+        if (window.lucide) window.lucide.createIcons();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (mobileDrawer.classList.contains('open') && !mobileDrawer.contains(e.target) && !mobileToggle.contains(e.target)) {
+        mobileDrawer.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+          icon.setAttribute('data-lucide', 'menu');
+          if (window.lucide) window.lucide.createIcons();
+        }
+      }
+    });
+  }
+
+  // 12. Interactive FAQ Accordion Functionality
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      if (!item) return;
+      const isOpen = item.classList.contains('active');
+      
+      // Close other accordion items in the same container for cleaner reading
+      const parentGrid = item.closest('.faq-grid');
+      if (parentGrid) {
+        parentGrid.querySelectorAll('.faq-item.active').forEach(openItem => {
+          if (openItem !== item) openItem.classList.remove('active');
+        });
+      }
+
+      item.classList.toggle('active', !isOpen);
+    });
+  });
+
+  // 13. URL Query Parameter Support for Inquiries (?service=... or ?project=...)
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceParam = urlParams.get('service');
+    const projectParam = urlParams.get('project');
+    const projectIdParam = urlParams.get('id');
+
+    // Auto prefill service selector on contact form
+    if (serviceParam) {
+      const projectSelect = document.getElementById('inquiryProjectType');
+      if (projectSelect) {
+        const lowerSearch = serviceParam.toLowerCase();
+        for (let i = 0; i < projectSelect.options.length; i++) {
+          const optVal = projectSelect.options[i].value.toLowerCase();
+          if (optVal.includes(lowerSearch) || lowerSearch.includes(optVal)) {
+            projectSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    }
+
+    // Auto prefill project inquiry message
+    if (projectParam) {
+      const messageField = document.getElementById('inquiryMessage');
+      if (messageField && !messageField.value) {
+        messageField.value = `Hi Inioluwa, I reviewed your project "${projectParam}" and would like to discuss producing a similar video production.`;
+      }
+    }
+
+    // Auto open project modal if ?id=X is passed
+    if (projectIdParam && projectsData[projectIdParam]) {
+      setTimeout(() => {
+        openProjectModal(projectIdParam);
+      }, 300);
+    }
+  } catch (err) {
+    console.debug('URL search params parsing notice:', err);
+  }
 });
+
