@@ -31,7 +31,8 @@ AI VIDEO PORTFOLIO/
 └── assets/
     ├── iniesta_logo.jpg         # Original uploaded brand logo
     ├── logo_dark_mode.png       # Dark-mode optimized logo lockup
-    ├── portrait_cutout.png      # Professional studio portrait cutout
+    ├── portrait.jpg             # Executive studio portrait of Inioluwa
+    ├── portrait_cutout.png      # Professional studio portrait asset
     ├── videos/                  # Production MP4 video assets
     └── projects/                # High-definition video poster thumbnails
 ```

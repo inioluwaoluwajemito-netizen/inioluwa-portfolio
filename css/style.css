@@ -624,38 +624,37 @@ body::after {
 .about-frame {
   position: relative;
   min-height: 480px;
+  aspect-ratio: 4 / 4.6;
   overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid rgba(35, 231, 241, 0.4);
-  background: linear-gradient(145deg, #123862, #071630 48%, #210d25);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(35, 231, 241, 0.1);
+  border-radius: 14px;
+  border: 1px solid rgba(35, 231, 241, 0.35);
+  background: #071630;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 0 35px rgba(35, 231, 241, 0.12);
 }
 
 .about-frame::before {
   content: "";
   position: absolute;
-  width: 75%;
-  aspect-ratio: 1;
-  top: 10%;
-  left: 12%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(35, 231, 241, 0.8), rgba(35, 231, 241, 0.15) 35%, rgba(255, 56, 87, 0.45) 50%, transparent 70%);
-  filter: blur(12px);
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(2, 9, 22, 0.02) 40%, rgba(2, 9, 22, 0.6) 80%, rgba(2, 9, 22, 0.88) 100%);
   pointer-events: none;
 }
 
 .about-portrait {
   position: absolute;
-  z-index: 2;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  height: 95%;
-  max-width: 92%;
-  object-fit: contain;
-  object-position: center bottom;
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.75)) contrast(1.03);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  z-index: 1;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  filter: contrast(1.02) brightness(0.98);
+}
+
+.about-frame:hover .about-portrait {
+  transform: scale(1.03);
 }
 
 .about-portrait-tint {
@@ -665,10 +664,12 @@ body::after {
 .about-frame::after {
   content: "";
   position: absolute;
-  inset: 15% 20%;
-  border: 1px solid rgba(243, 248, 255, 0.4);
-  transform: rotate(32deg);
+  inset: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(35, 231, 241, 0.25);
+  box-shadow: inset 0 0 30px rgba(35, 231, 241, 0.1);
   pointer-events: none;
+  z-index: 2;
 }
 
 .frame-stamp {
@@ -1866,6 +1867,7 @@ body::after {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 20%;
 }
 
 .wa-online-dot {
