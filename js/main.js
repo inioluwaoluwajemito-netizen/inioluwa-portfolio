@@ -424,6 +424,24 @@ document.addEventListener('DOMContentLoaded', () => {
       tools: ['Runway Gen-3 Alpha', 'Midjourney v6.1', 'DaVinci Resolve Studio', 'Kling AI'],
       promptFormula: 'cinematic luxury restaurant commercial, master Japanese omakase chef precision slicing and pouring rich glaze over seared culinary dish, shallow depth of field, warm ambient wood interior lighting, elegant dining guests raising glasses, slow pan 4k macro --ar 16:9',
       pills: ['Culinary Cinema', 'Macro Gastronomy', 'Luxury Brand Spot']
+    },
+    '24': {
+      id: '24',
+      title: 'Savor / Smoky Jollof & Afro-Gourmet Cinema',
+      category: '24 / CULINARY BRAND COMMERCIAL',
+      tag: 'brand',
+      image: 'assets/projects/thumb_d7.png',
+      video: 'assets/videos/video_d7.mp4',
+      description: 'Mouthwatering culinary commercial highlighting steaming smoky West African Jollof rice, golden flame-grilled chicken, caramelized sweet fried plantains, and crisp garden salad on artisanal stoneware.',
+      specs: {
+        resolution: '1920x1080 Full HD',
+        fps: '30 fps Cinematic',
+        ratio: '16:9 Landscape',
+        audio: 'Sizzling Kitchen Ambience & Afro-Cinematic Score'
+      },
+      tools: ['Runway Gen-3 Alpha', 'Midjourney v6.1', 'DaVinci Resolve Studio', 'Topaz Video AI'],
+      promptFormula: 'cinematic culinary commercial macro shot, steaming hot rich smoky Jollof rice piled high with flame-grilled seasoned chicken quarter, golden crispy fried plantain slices, fresh garden salad on modern matte black plate, delicate smoke rising, soft warm restaurant lighting, shallow depth of field --ar 16:9',
+      pills: ['Gourmet Food Cinema', 'Commercial Direction', '1080p Full HD']
     }
   };
 
@@ -970,10 +988,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     portfolio: {
-      title: "🌟 23 Live Video Productions",
+      title: "🌟 24 Live Video Productions",
       html: `
-        <p>Explore 23 live AI video productions featured in our portfolio:</p>
+        <p>Explore 24 live AI video productions featured in our portfolio:</p>
         <ul style="margin: 8px 0 8px 18px; line-height: 1.5; font-size: 0.85rem; color: #bed2ea;">
+          <li><strong>Project 24 (Savor Jollof):</strong> Afro-gourmet culinary cinema with steaming smoky Jollof rice & flame-grilled chicken.</li>
           <li><strong>Project 23 (Shiro Omakase):</strong> Haute culinary brand film with macro food cinematography.</li>
           <li><strong>Project 22 (Apex Cinema Bugatti):</strong> Hypercar commercial with showroom camera sweeps.</li>
           <li><strong>Project 21 (UGC Hook):</strong> High-conversion direct response reel with kinetic captions.</li>
@@ -982,7 +1001,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p style="font-size: 0.82rem; color: #9eb8d5;">Every project includes full prompt formulas and technical specs.</p>
       `,
       chips: [
-        { label: '🌐 Open Full 23-Project Portfolio', action: 'NAV_PORTFOLIO' },
+        { label: '🌐 Open Full 24-Project Portfolio', action: 'NAV_PORTFOLIO' },
         { label: '📱 View TikTok (@iniesta.automation1)', action: 'NAV_TIKTOK' },
         { label: '📝 Build a Similar Video Brief', action: 'START_BRIEF' }
       ]
@@ -1459,7 +1478,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { label: '💰 Pricing & Investment Guide', action: 'QUERY_PRICING' },
       { label: '🛠️ AI Tools (Runway/Kling/Sora)', action: 'QUERY_TOOLS' },
       { label: '⏱️ Delivery & Turnaround Times', action: 'QUERY_TIMELINE' },
-      { label: '🌟 23 Live Portfolio Projects', action: 'QUERY_PORTFOLIO' },
+      { label: '🌟 24 Live Portfolio Projects', action: 'QUERY_PORTFOLIO' },
       { label: '💬 Direct WhatsApp to Inioluwa', action: 'DIRECT_WA' }
     ], (opt) => {
       appendChatBubble('user', `<p>${opt.label}</p>`);
