@@ -20,20 +20,24 @@ A high-performance, dark-space web portfolio presenting 24 live AI video product
 
 ---
 
-## 📁 Repository Structure
+## 📁 Multi-Page Website Architecture
 ```
 AI VIDEO PORTFOLIO/
-├── index.html                   # Semantic HTML5 structure with 24 live project cards
+├── index.html                   # Flagship Homepage with keynote reel & featured works
+├── about.html                   # Dedicated About & Creative Technologist Mission page
+├── services.html                # Dedicated Services & Commercial Packages breakdown
+├── portfolio.html               # Dedicated Portfolio Archive (all 24 live AI video productions)
+├── contact.html                 # Dedicated Contact & Project Inquiry page with FormSubmit.co
 ├── css/
-│   └── style.css                # Fluid typography, dark-space styling, animations
+│   └── style.css                # Fluid typography, dark-space styling, animations, global footer
 ├── js/
-│   └── main.js                  # Lightbox modal, filter logic, video playback
+│   └── main.js                  # Lightbox modal, filter logic, video playback, WhatsApp bot
 └── assets/
     ├── iniesta_logo.jpg         # Original uploaded brand logo
     ├── logo_dark_mode.png       # Dark-mode optimized logo lockup
     ├── portrait.jpg             # Executive studio portrait of Inioluwa
     ├── portrait_cutout.png      # Professional studio portrait asset
-    ├── videos/                  # Production MP4 video assets
+    ├── videos/                  # Production MP4 video assets (24 live productions)
     └── projects/                # High-definition video poster thumbnails
 ```
 

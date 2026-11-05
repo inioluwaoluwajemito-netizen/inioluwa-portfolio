@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Social Meta Tags -->
+  <title>Contact &amp; Start a Project — Inioluwa | Iniesta Automation Hub</title>
+  <meta name="description" content="Start your commercial AI video production with Inioluwa. Inquire for brand films, high-converting UGC hooks, custom digital avatars, and generative cinematography.">
+  <meta property="og:title" content="Contact Inioluwa — AI Video Specialist">
+  <meta property="og:description" content="Let's build something cinematic. Connect with Iniesta Automation Hub for fast, broadcast-grade generative video production.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inioluwa-portfolio-self.vercel.app/contact.html">
+  <link rel="canonical" href="https://inioluwa-portfolio-self.vercel.app/contact.html">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Raleway:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    
+    <!-- Top Navigation Bar -->
+    <header class="site-nav">
+      <div class="site-width nav-container">
+        <a class="brand-lockup" href="index.html" aria-label="Inioluwa — Home">
+          <div class="logo-wrapper">
+            <img src="assets/logo_dark_mode.png" alt="Iniesta Automation Hub Logo" class="nav-logo-img">
+          </div>
+          <div class="brand-meta">
+            <span class="brand-name">INIOLUWA</span>
+            <span class="brand-badge">Iniesta Automation Hub</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="nav-links-desktop" aria-label="Desktop Navigation">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="services.html">Services</a>
+          <a class="nav-link" href="portfolio.html">Portfolio</a>
+          <a class="nav-link active" href="contact.html">Contact</a>
+          <a class="nav-link nav-link-tiktok" href="https://www.tiktok.com/@iniesta.automation1" target="_blank" rel="noopener noreferrer" title="Follow on TikTok">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.96-4.49V8.69a8.18 8.18 0 0 0 4.81 1.55v-3.5a4.89 4.89 0 0 1-1-.05z"/></svg>
+            <span>TikTok</span>
+          </a>
+        </nav>
+
+        <!-- Nav CTA & Mobile Menu Toggle -->
+        <div class="nav-actions">
+          <a class="nav-btn" href="contact.html">
+            <span>Start a Project</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <a class="mobile-nav-link" href="index.html">Home <i data-lucide="chevron-right"></i></a>
+      <a class="mobile-nav-link" href="about.html">About <i data-lucide="chevron-right"></i></a>
+      <a class="mobile-nav-link" href="services.html">Services <i data-lucide="chevron-right"></i></a>
+      <a class="mobile-nav-link" href="portfolio.html">Portfolio <i data-lucide="chevron-right"></i></a>
+      <a class="mobile-nav-link active" href="contact.html">Contact <i data-lucide="chevron-right"></i></a>
+      <a class="mobile-nav-link" href="https://www.tiktok.com/@iniesta.automation1" target="_blank" rel="noopener noreferrer" style="color: var(--cyan);">
+        <span style="display: inline-flex; align-items: center; gap: 0.5rem;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.96-4.49V8.69a8.18 8.18 0 0 0 4.81 1.55v-3.5a4.89 4.89 0 0 1-1-.05z"/></svg>
+          TikTok (@iniesta.automation1)
+        </span>
+        <i data-lucide="arrow-up-right"></i>
+      </a>
+      <a class="cta-primary mt-4" href="contact.html">Start a Project</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      
+      <!-- Page Hero Header -->
+      <section class="page-hero">
+        <div class="site-width page-hero-inner">
+          <div class="page-breadcrumb">
+            <a href="index.html">Home</a>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            <span>Contact</span>
+          </div>
+          <h1 class="display-font page-hero-title">Let's Build Something Cinematic.</h1>
+          <p class="page-hero-subtitle">
+            Have a brand commercial, campaign brief, UGC hook, or digital avatar production in mind? Submit your scope below for a tailored proposal and timeline within 24 hours.
+          </p>
+
+          <div class="page-hero-stats">
+            <div class="page-hero-stat-item">
+              <span class="page-hero-stat-val">&lt; 24h</span>
+              <span class="page-hero-stat-lbl">Response Time</span>
+            </div>
+            <div class="page-hero-stat-item">
+              <span class="page-hero-stat-val">48–72h</span>
+              <span class="page-hero-stat-lbl">First Cut Delivery</span>
+            </div>
+            <div class="page-hero-stat-item">
+              <span class="page-hero-stat-val">100%</span>
+              <span class="page-hero-stat-lbl">Direct Creator Contact</span>
+            </div>
+            <div class="page-hero-stat-item">
+              <span class="page-hero-stat-val">Global</span>
+              <span class="page-hero-stat-lbl">Remote Production</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Contact Form & Channels Section -->
+      <section class="section-space">
+        <div class="site-width">
+          <div class="contact-panel">
+            <div class="contact-layout">
+              <div>
+                <p class="eyebrow" style="color: var(--cyan);">GET IN TOUCH DIRECTLY</p>
+                <h2 class="display-font section-title">Direct Communication Channels</h2>
+                <p class="about-bio">
+                  Whether you prefer an instant chat over WhatsApp, a formal email brief, or hiring securely through Upwork, choose the channel that fits your workflow.
+                </p>
+
+                <div class="contact-links-row">
+                  <a href="tel:08106273746" class="contact-channel-card">
+                    <div class="channel-icon">
+                      <i data-lucide="phone"></i>
+                    </div>
+                    <div>
+                      <div class="channel-label">Direct Voice Line 1</div>
+                      <div class="channel-val">08106273746</div>
+                    </div>
+                  </a>
+
+                  <a href="https://wa.me/2348135384333?text=Hi%20Inioluwa%2C%20I%20am%20interested%20in%20an%20AI%20video%20production%20for%20my%20brand." target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                    <div class="channel-icon" style="color: #25d366;">
+                      <i data-lucide="message-circle"></i>
+                    </div>
+                    <div>
+                      <div class="channel-label">Direct WhatsApp Line</div>
+                      <div class="channel-val">+234 813 538 4333 ↗</div>
+                    </div>
+                  </a>
+
+                  <a href="mailto:iniesta.automation@gmail.com" class="contact-channel-card">
+                    <div class="channel-icon">
+                      <i data-lucide="mail"></i>
+                    </div>
+                    <div>
+                      <div class="channel-label">Official Email</div>
+                      <div class="channel-val">iniesta.automation@gmail.com ↗</div>
+                    </div>
+                  </a>
+
+                  <a href="https://www.upwork.com/freelancers/~01050dd7c24906844a" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                    <div class="channel-icon" style="color: #14a800;">
+                      <i data-lucide="briefcase"></i>
+                    </div>
+                    <div>
+                      <div class="channel-label">Upwork Verified Profile</div>
+                      <div class="channel-val">Hire Safely on Upwork ↗</div>
+                    </div>
+                  </a>
+
+                  <a href="https://www.tiktok.com/@iniesta.automation1" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                    <div class="channel-icon">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.96-4.49V8.69a8.18 8.18 0 0 0 4.81 1.55v-3.5a4.89 4.89 0 0 1-1-.05z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="channel-label">TikTok Creator Channel</div>
+                      <div class="channel-val">@iniesta.automation1 ↗</div>
+                    </div>
+                  </a>
+
+                  <a href="https://www.linkedin.com/in/inioluwa-elisha-2726a6247/" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                    <div class="channel-icon">
+                      <i data-lucide="linkedin"></i>
+                    </div>
+                    <div>
+                      <div class="channel-label">LinkedIn Profile</div>
+                      <div class="channel-val">Inioluwa Elisha ↗</div>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- Production Guarantees -->
+                <div style="margin-top: 2.5rem; padding: 1.5rem; background: rgba(2, 9, 22, 0.6); border-radius: 10px; border: 1px solid var(--line);">
+                  <div style="font-weight: 700; color: var(--white); margin-bottom: 0.8rem; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-[#23e7f1]" style="color: var(--cyan);"></i>
+                    What to Expect When Partnering With Us:
+                  </div>
+                  <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; font-size: 0.86rem; color: #a9bed6;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;"><i data-lucide="check" class="w-3.5 h-3.5 text-[#23e7f1]" style="margin-top: 3px; flex-shrink: 0; color: var(--cyan);"></i> <span><strong>Fixed-Price Quotes:</strong> Clear milestone-based estimates with no unexpected hourly overages.</span></li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;"><i data-lucide="check" class="w-3.5 h-3.5 text-[#23e7f1]" style="margin-top: 3px; flex-shrink: 0; color: var(--cyan);"></i> <span><strong>Direct Collaboration:</strong> You work directly with Inioluwa on creative prompts, cuts, and finishing.</span></li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;"><i data-lucide="check" class="w-3.5 h-3.5 text-[#23e7f1]" style="margin-top: 3px; flex-shrink: 0; color: var(--cyan);"></i> <span><strong>Full Commercial Clearance:</strong> Every generated frame and licensed audio asset belongs 100% to your brand.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Quick Inquiry Form -->
+              <div class="inquiry-form-card">
+                <h3 class="form-title">Send a Project Brief</h3>
+                <p class="form-subtitle">Fill in your requirements and receive an estimate and turnaround breakdown straight to your inbox.</p>
+                
+                <form id="projectInquiryForm" action="https://formsubmit.co/iniesta.automation@gmail.com" method="POST">
+                  <!-- FormSubmit.co email routing configuration -->
+                  <input type="hidden" name="_subject" id="formSubject" value="New AI Video Inquiry from Website">
+                  <input type="hidden" name="_captcha" value="false">
+                  <input type="hidden" name="_template" value="box">
+                  <input type="hidden" name="_replyto" id="formReplyTo" value="">
+                  <input type="text" name="_honey" style="display:none">
+
+                  <div class="form-group">
+                    <label class="form-label" for="clientName">Your Name / Company <span class="form-required">*</span></label>
+                    <input type="text" id="clientName" name="name" class="form-input" placeholder="e.g. Sarah Jenkins (Apex Media)" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="clientEmail">Email Address <span class="form-required">*</span></label>
+                    <input type="email" id="clientEmail" name="email" class="form-input" placeholder="sarah@yourbrand.com" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="clientPhone">WhatsApp / Phone Number</label>
+                    <input type="tel" id="clientPhone" name="phone" class="form-input" placeholder="+1 (555) 000-0000 or WhatsApp number">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="projectType">Service Needed <span class="form-required">*</span></label>
+                    <select id="projectType" name="projectType" class="form-select" required>
+                      <option value="" disabled selected>Select production scope...</option>
+                      <option value="Commercial Brand Film">Commercial Brand Film (Runway Gen-3 / Midjourney)</option>
+                      <option value="UGC Hook & Video Ads">UGC Hook &amp; High-Converting Video Ads (TikTok / Meta)</option>
+                      <option value="AI Digital Avatar & Talking Head">AI Digital Avatar &amp; Multilingual Presenter</option>
+                      <option value="Motion Graphics & Generative VFX">Motion Graphics, Camera Flythrough &amp; VFX</option>
+                      <option value="AI Voiceover & Sound Design">AI Voiceover &amp; Studio Audio Mastering</option>
+                      <option value="Custom Batch Production">Custom / Recurring Batch Video Pipeline</option>
+                      <option value="General Inquiry">General Consultation / Question</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="targetTimeline">Estimated Timeline</label>
+                    <select id="targetTimeline" name="timeline" class="form-select">
+                      <option value="Urgent (48-72 Hours)">⚡ Urgent — Need within 48 to 72 hours</option>
+                      <option value="This Week (3-5 Days)" selected>⏱️ This Week (3 to 5 business days)</option>
+                      <option value="Within 2 Weeks">📅 Within 2 to 3 weeks</option>
+                      <option value="Flexible / Ongoing">💡 Flexible / Ongoing monthly retainer</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="projectNotes">Project Brief &amp; Creative Goals <span class="form-required">*</span></label>
+                    <textarea id="projectNotes" name="message" rows="4" class="form-textarea" placeholder="Tell us about the concept, target audience, preferred visual mood (reference links, style), and duration..." required></textarea>
+                  </div>
+
+                  <button type="submit" class="form-submit-btn" id="formSubmitBtn">
+                    <span>Send Project Inquiry</span>
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                  </button>
+
+                  <div id="formStatusMsg" class="form-status-msg" style="display:none;" role="status"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Frequently Asked Questions -->
+      <section class="section-space">
+        <div class="site-width">
+          <p class="eyebrow" style="color: var(--cyan); text-align: center;">FAQ</p>
+          <h2 class="display-font section-title" style="text-align: center; max-width: 650px; margin: 0 auto 3rem;">Frequently Asked Questions</h2>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <div style="background: rgba(6, 21, 45, 0.45); border: 1px solid var(--line); border-radius: 12px; padding: 1.8rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="help-circle" class="w-4 h-4 text-[#23e7f1]" style="color: var(--cyan);"></i>
+                What is the typical turnaround time?
+              </h3>
+              <p style="font-size: 0.9rem; line-height: 1.6; color: #a9bed6; margin: 0;">
+                Single commercial spots, UGC hooks, and AI avatars typically see their first polished cut delivered within <strong>48 to 72 hours</strong>. Complex multi-scene brand films with custom 3D motion tracking take 4 to 6 business days.
+              </p>
+            </div>
+
+            <div style="background: rgba(6, 21, 45, 0.45); border: 1px solid var(--line); border-radius: 12px; padding: 1.8rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="help-circle" class="w-4 h-4 text-[#23e7f1]" style="color: var(--cyan);"></i>
+                How do revisions and feedback work?
+              </h3>
+              <p style="font-size: 0.9rem; line-height: 1.6; color: #a9bed6; margin: 0;">
+                Every production includes <strong>2 structured revision rounds</strong>. We share private review links where you can pinpoint timecodes and notes. Revisions are iterated within 24 hours.
+              </p>
+            </div>
+
+            <div style="background: rgba(6, 21, 45, 0.45); border: 1px solid var(--line); border-radius: 12px; padding: 1.8rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="help-circle" class="w-4 h-4 text-[#23e7f1]" style="color: var(--cyan);"></i>
+                Do I own full commercial rights?
+              </h3>
+              <p style="font-size: 0.9rem; line-height: 1.6; color: #a9bed6; margin: 0;">
+                <strong>Yes, 100%.</strong> Upon final payment delivery, all intellectual property, high-resolution master exports, and commercial broadcast rights are transferred to you with zero royalty obligations.
+              </p>
+            </div>
+
+            <div style="background: rgba(6, 21, 45, 0.45); border: 1px solid var(--line); border-radius: 12px; padding: 1.8rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="help-circle" class="w-4 h-4 text-[#23e7f1]" style="color: var(--cyan);"></i>
+                What formats and resolutions are delivered?
+              </h3>
+              <p style="font-size: 0.9rem; line-height: 1.6; color: #a9bed6; margin: 0;">
+                Masters are delivered in ProRes or high-bitrate MP4 at <strong>4K UHD (3840x2160)</strong> or 1080p, formatted in your required aspect ratios (16:9 widescreen, 9:16 vertical reels, 1:1 square feeds).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Comprehensive Multi-Page Global Footer -->
+    <footer class="site-footer">
+      <div class="site-width footer-main-grid">
+        <div class="footer-col-brand">
+          <div class="brand-lockup">
+            <div class="logo-wrapper">
+              <img src="assets/logo_dark_mode.png" alt="Iniesta Automation Hub Logo" class="nav-logo-img">
+            </div>
+            <div class="brand-meta">
+              <span class="brand-name">INIOLUWA</span>
+              <span class="brand-badge">Iniesta Automation Hub</span>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            Creative direction, generative AI video production, and automated visual pipelines for forward-thinking brands, agencies, and creators worldwide.
+          </p>
+        </div>
+
+        <div class="footer-col-nav">
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About &amp; Mission</a></li>
+            <li><a href="services.html">Services &amp; Packages</a></li>
+            <li><a href="portfolio.html">Selected Works (24)</a></li>
+            <li><a href="contact.html">Contact &amp; Quotes</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col-nav">
+          <h4 class="footer-col-title">Capabilities</h4>
+          <ul class="footer-links-list">
+            <li><a href="services.html#service-1">Commercial Brand Films</a></li>
+            <li><a href="services.html#service-2">Direct-Response UGC Hooks</a></li>
+            <li><a href="services.html#service-3">AI Digital Avatars</a></li>
+            <li><a href="services.html#service-4">Generative Motion &amp; VFX</a></li>
+            <li><a href="services.html#service-5">Sound Design &amp; Voiceovers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col-nav">
+          <h4 class="footer-col-title">Connect</h4>
+          <ul class="footer-links-list">
+            <li><a href="https://wa.me/2348135384333" target="_blank" rel="noopener noreferrer">WhatsApp Direct</a></li>
+            <li><a href="https://www.upwork.com/freelancers/~01050dd7c24906844a" target="_blank" rel="noopener noreferrer">Hire on Upwork</a></li>
+            <li><a href="https://www.tiktok.com/@iniesta.automation1" target="_blank" rel="noopener noreferrer">TikTok Channel</a></li>
+            <li><a href="https://www.linkedin.com/in/inioluwa-elisha-2726a6247/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></li>
+            <li><a href="mailto:iniesta.automation@gmail.com">Direct Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-width footer-bottom-bar">
+        <p>© 2026 Inioluwa — AI Video Specialist &amp; Iniesta Automation Hub. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a class="back-to-top" href="#top">
+            <span>Back to top</span>
+            <i data-lucide="arrow-up" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- WhatsApp Chatbot Floating Widget -->
+  <div class="wa-chatbot-wrapper" id="waChatbotWrapper">
+    <div class="wa-chat-window" id="waChatWindow" role="region" aria-label="WhatsApp Chat Assistant">
+      <div class="wa-chat-header">
+        <div class="wa-header-avatar-group">
+          <div class="wa-avatar-ring">
+            <img src="assets/portrait.jpg?v=6" alt="Inioluwa" class="wa-avatar-img">
+            <span class="wa-online-dot" aria-hidden="true"></span>
+          </div>
+          <div class="wa-header-info">
+            <div class="wa-header-name">Inioluwa <span class="wa-verified-badge" title="Verified Specialist">✓</span></div>
+            <div class="wa-header-status">
+              <span class="wa-status-text">AI Video Specialist • Typically replies in 5m</span>
+            </div>
+          </div>
+        </div>
+        <div class="wa-header-actions">
+          <button class="wa-header-btn" id="waRestartBtn" title="Restart conversation" aria-label="Restart conversation">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          </button>
+          <button class="wa-header-btn" id="waCloseBtn" title="Close chat window" aria-label="Close chat window">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="wa-chat-body" id="waChatBody"></div>
+
+      <div class="wa-chat-chips" id="waChatChips" role="group" aria-label="Quick response options"></div>
+
+      <form class="wa-chat-footer" id="waChatFooter">
+        <input type="text" class="wa-chat-input" id="waChatInput" placeholder="Ask a question or type your project brief..." autocomplete="off">
+        <button type="submit" class="wa-chat-send-btn" id="waChatSendBtn" aria-label="Send message">
+          <i data-lucide="send" class="w-4 h-4"></i>
+        </button>
+      </form>
+    </div>
+
+    <button class="wa-floating-toggle" id="waFloatingToggle" aria-label="Open WhatsApp AI Assistant" aria-expanded="false">
+      <div class="wa-toggle-glow"></div>
+      <div class="wa-toggle-icon">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </div>
+      <div class="wa-toggle-badge">1</div>
+    </button>
+  </div>
+
+  <!-- JavaScript Interaction Layer -->
+  <script src="js/main.js"></script>
+</body>
+</html>
