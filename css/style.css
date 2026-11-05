@@ -1525,21 +1525,6 @@ body::after {
   flex-shrink: 0;
 }
 
-.nav-link-tiktok {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.nav-link-tiktok svg {
-  color: var(--cyan);
-  transition: transform 0.2s ease;
-}
-
-.nav-link-tiktok:hover svg {
-  transform: scale(1.15);
-}
-
 .back-to-top {
   display: inline-flex;
   align-items: center;
